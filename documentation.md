@@ -95,7 +95,10 @@ export const config = {
 };
 ```
 
-## 9. Code UI Layout of Dashboard
+## Get Profile
+
+- use Tanstack Query => define hook `useAccount` in `queries` folder , where contains hooks related to account
+- 
 
 ## Reference:
 
