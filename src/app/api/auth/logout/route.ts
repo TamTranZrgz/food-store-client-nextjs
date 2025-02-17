@@ -12,10 +12,10 @@ export async function POST(request: Request) {
   cookieStore.delete("refreshToken");
 
   if (!accessToken || !refreshToken) {
-    return (
-      Response.json({
+    return Response.json(
+      {
         message: "Khong nhan duoc access token va refresh token",
-      }),
+      },
       {
         status: 200,
       }
