@@ -46,6 +46,7 @@ export async function POST(request: Request) {
 
     return Response.json(payload);
   } catch (error: any) {
+    // console.log(error);
     return Response.json(
       {
         message: error.message ?? "Co loi xay ra",

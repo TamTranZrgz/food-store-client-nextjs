@@ -15,11 +15,17 @@ import { LoginBody, LoginBodyType } from "@/schemaValidations/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "@/queries/useAuth";
 import { toast } from "@/hooks/use-toast";
-import { handleErrorApi } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import {
+  handleErrorApi,
+  removeAccessTokenAndRefreshTokenFromLocalStorage,
+} from "@/lib/utils";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginForm() {
   const loginMutation = useLoginMutation();
+  const searchParams = useSearchParams();
+  const clearTokens = searchParams.get("clearTokens");
 
   // when click on submit, react-hook-form will validate form by zod schema at client side first
   const form = useForm<LoginBodyType>({
@@ -31,6 +37,12 @@ export default function LoginForm() {
   });
 
   const router = useRouter();
+
+  // useEffect(() => {
+  //   if (clearTokens) {
+  //     removeAccessTokenAndRefreshTokenFromLocalStorage();
+  //   }
+  // }, [clearTokens]);
 
   const onSubmit = async (data: LoginBodyType) => {
     // when submit, from client, zod schema will validate form input data first
