@@ -15,17 +15,16 @@ import { LoginBody, LoginBodyType } from "@/schemaValidations/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLoginMutation } from "@/queries/useAuth";
 import { toast } from "@/hooks/use-toast";
-import {
-  handleErrorApi,
-  removeAccessTokenAndRefreshTokenFromLocalStorage,
-} from "@/lib/utils";
+import { handleErrorApi } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { useAppContext } from "@/components/app-provider";
 
 export default function LoginForm() {
   const loginMutation = useLoginMutation();
   const searchParams = useSearchParams();
   const clearTokens = searchParams.get("clearTokens");
+  const { setIsAuth } = useAppContext();
 
   // when click on submit, react-hook-form will validate form by zod schema at client side first
   const form = useForm<LoginBodyType>({
@@ -38,11 +37,11 @@ export default function LoginForm() {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (clearTokens) {
-  //     removeAccessTokenAndRefreshTokenFromLocalStorage();
-  //   }
-  // }, [clearTokens]);
+  useEffect(() => {
+    if (clearTokens) {
+      setIsAuth(false);
+    }
+  }, [clearTokens, setIsAuth]);
 
   const onSubmit = async (data: LoginBodyType) => {
     // when submit, from client, zod schema will validate form input data first
@@ -53,6 +52,7 @@ export default function LoginForm() {
       toast({
         description: result.payload.message,
       });
+      setIsAuth(true);
       router.push("/manage/dashboard");
     } catch (error: any) {
       // pass the zod validation, but call api not successfully, will go to this catch error

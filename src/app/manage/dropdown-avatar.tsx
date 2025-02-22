@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useLogoutMutation } from "@/queries/useAuth";
 import { handleErrorApi } from "@/lib/utils";
 import { useAccountMe } from "@/queries/useAccount";
+import { useAppContext } from "@/components/app-provider";
 
 const account = {
   name: "Nguyễn Văn A",
@@ -26,6 +27,7 @@ const account = {
 export default function DropdownAvatar() {
   const logoutMutation = useLogoutMutation();
   const router = useRouter();
+  const { setIsAuth } = useAppContext();
 
   // use custome hook to get profile
   const { data } = useAccountMe();
@@ -37,6 +39,7 @@ export default function DropdownAvatar() {
       // after calling logout api, not need to delete AT & RF from Local Storage
       // because they have been deleted in `request` constant in 'http.ts' file
       await logoutMutation.mutateAsync();
+      setIsAuth(false); // reset isAuth state from AppContext
 
       // after logout successfully, navigate to home page
       router.push("/");
