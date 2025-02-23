@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useLogoutMutation } from "@/queries/useAuth";
 import {
@@ -9,7 +9,7 @@ import {
 } from "@/lib/utils";
 import { useAppContext } from "@/components/app-provider";
 
-export default function LogoutPage() {
+function Logout() {
   const { mutateAsync } = useLogoutMutation();
   const router = useRouter();
   const { setIsAuth } = useAppContext();
@@ -38,7 +38,15 @@ export default function LogoutPage() {
     } else {
       router.push("/");
     }
-  }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl]);
+  }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl, setIsAuth]);
 
   return <div>Logout ...</div>;
+}
+
+export default function LogoutPage() {
+  return (
+    <Suspense fallback={<div>Log out...</div>}>
+      <Logout />;
+    </Suspense>
+  );
 }

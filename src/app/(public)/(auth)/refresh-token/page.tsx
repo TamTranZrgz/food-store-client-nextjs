@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   checkAndRefreshToken,
   getRefreshTokenFromLocalStorage,
 } from "@/lib/utils";
 
-export default function RefreshTokenPage() {
+function RefreshToken() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const refreshTokenFromUrl = searchParams.get("refreshToken");
@@ -29,4 +29,14 @@ export default function RefreshTokenPage() {
   }, [router, refreshTokenFromUrl, redirectPathname]);
 
   return <div>Refresh token ...</div>;
+}
+
+// wrap RefreshToken component in Suspense to avoid error from searchParams
+// this method is called Suspense Boundary
+export default function RefreshTokenPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RefreshToken />;
+    </Suspense>
+  );
 }
