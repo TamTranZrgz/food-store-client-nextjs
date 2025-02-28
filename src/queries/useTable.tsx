@@ -10,15 +10,15 @@ export const useGetTableList = () => {
 };
 
 export const useGetTable = ({
-  number,
+  id,
   enabled,
 }: {
-  number: number;
+  id: number;
   enabled?: boolean;
 }) => {
   return useQuery({
-    queryKey: ["tables", number],
-    queryFn: () => tableApiRequest.getTable(number), // pass function
+    queryKey: ["tables", id],
+    queryFn: () => tableApiRequest.getTable(id), // pass function
     enabled,
   });
 };
@@ -38,11 +38,8 @@ export const useAddTableMutation = () => {
 export const useUpdateTableMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      number,
-      ...body
-    }: { number: number } & UpdateTableBodyType) =>
-      tableApiRequest.updateTable(number, body),
+    mutationFn: ({ id, ...body }: { id: number } & UpdateTableBodyType) =>
+      tableApiRequest.updateTable(id, body),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["tables"],
