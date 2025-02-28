@@ -72,7 +72,7 @@ export default function AddDish() {
 
   // Reset form
   const reset = () => {
-    form.reset({});
+    form.reset();
     setFile(null);
   };
 
