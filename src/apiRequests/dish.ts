@@ -10,7 +10,11 @@ import {
 const prefix = "/dishes";
 
 const dishApiRequest = {
-  list: () => http.get<DishListResType>(prefix), // get dish list
+  // Note: In Nestjs 15 will be fetch dynamic rendering by default {cache: "no-store"}
+  list: () =>
+    http.get<DishListResType>(prefix, {
+      next: { tags: ["dishes"] },
+    }), // get dish list
   addDish: (body: CreateDishBodyType) => http.post<DishResType>(prefix, body),
   updateDish: (id: number, body: UpdateDishBodyType) =>
     http.put<DishResType>(`${prefix}/${id}`, body),
