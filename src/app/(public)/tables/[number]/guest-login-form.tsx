@@ -10,16 +10,55 @@ import {
   GuestLoginBody,
   GuestLoginBodyType,
 } from "@/schemaValidations/guest.schema";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { useGuestLoginMutation } from "@/queries/useGuest";
+import { useAppContext } from "@/components/app-provider";
+import { handleErrorApi } from "@/lib/utils";
 
 export default function GuestLoginForm() {
+  const { setRole } = useAppContext();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const params = useParams();
+  // console.log(params);
+  // console.log(searchParams.get("token"));
+  const tableNumber = Number(params.number); // ex: http://localhost:3000/tables/4?token=38d424d8acaf46489a1e6c4a09ac61e4
+  const token = searchParams.get("token");
+
+  const loginMutation = useGuestLoginMutation();
+
   const form = useForm<GuestLoginBodyType>({
     resolver: zodResolver(GuestLoginBody),
+    // ex: http://localhost:3000/tables/4?token=38d424d8acaf46489a1e6c4a09ac61e4
     defaultValues: {
       name: "",
-      token: "",
-      tableNumber: 1,
+      token: token ?? "",
+      tableNumber,
     },
   });
+
+  useEffect(() => {
+    if (!token) {
+      router.push("/");
+    }
+  }, [token, router]);
+
+  async function onSubmit(values: GuestLoginBodyType) {
+    // console.log(values);
+    if (loginMutation.isPending) return;
+    try {
+      const result = await loginMutation.mutateAsync(values);
+      setRole(result.payload.data.guest.role);
+      router.push("/guest/menu");
+    } catch (error) {
+      // console.log(error);
+      handleErrorApi({
+        error,
+        setError: form.setError,
+      });
+    }
+  }
 
   return (
     <Card className="mx-auto max-w-sm">
@@ -31,6 +70,9 @@ export default function GuestLoginForm() {
           <form
             className="space-y-2 max-w-[600px] flex-shrink-0 w-full"
             noValidate
+            onSubmit={form.handleSubmit(onSubmit, (e) => {
+              console.log(e);
+            })}
           >
             <div className="grid gap-4">
               <FormField

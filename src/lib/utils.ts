@@ -7,6 +7,7 @@ import authApiRequest from "@/apiRequests/auth";
 import { EntityError } from "./http";
 import { DishStatus, OrderStatus, TableStatus } from "@/constants/type";
 import envConfig from "@/config";
+import { TokenPayload } from "@/types/jwt.types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -84,15 +85,9 @@ export const checkAndRefreshToken = async (param?: {
   // if not logined, not run this function
   if (!accessToken || !refreshToken) return;
 
-  const decodedAccessToken = jwt.decode(accessToken) as {
-    exp: number;
-    iat: number;
-  };
+  const decodedAccessToken = decodeToken(accessToken);
 
-  const decodedRefreshToken = jwt.decode(refreshToken) as {
-    exp: number;
-    iat: number;
-  };
+  const decodedRefreshToken = decodeToken(refreshToken);
 
   // time to expire of token calculated by epoch time (s)
   // if using new Date(.getTime()), it will return time in ms
@@ -186,4 +181,8 @@ export const getTableLink = ({
   return (
     envConfig.NEXT_PUBLIC_URL + "/tables/" + tableNumber + "?token=" + token
   );
+};
+
+export const decodeToken = (token: string) => {
+  return jwt.decode(token) as TokenPayload;
 };

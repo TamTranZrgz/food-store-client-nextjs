@@ -11,9 +11,12 @@ import {
   useState,
 } from "react";
 import {
+  decodeToken,
   getAccessTokenFromLocalStorage,
   removeAccessTokenAndRefreshTokenFromLocalStorage,
 } from "@/lib/utils";
+import { RoleType } from "@/types/jwt.types";
+import { boolean } from "zod";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,7 +29,8 @@ const queryClient = new QueryClient({
 
 const AppContext = createContext({
   isAuth: false,
-  setIsAuth: (isAuth: boolean) => {},
+  role: undefined as RoleType | undefined, // not login
+  setRole: (role?: RoleType | undefined) => {},
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -36,28 +40,29 @@ export default function AppProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isAuth, setIsAuthState] = useState(false);
+  const [role, setRoleState] = useState<RoleType | undefined>();
 
   useEffect(() => {
     const accessToken = getAccessTokenFromLocalStorage();
     if (accessToken) {
-      setIsAuthState(true);
+      const role = decodeToken(accessToken).role;
+      setRoleState(role);
     }
-  }, [setIsAuthState]);
+  }, [setRoleState]);
 
   // If us nextjs 15 and react 19, will no need to useCallback
-  const setIsAuth = useCallback((isAuth: boolean) => {
-    if (isAuth) {
-      setIsAuthState(true);
-    } else {
-      setIsAuthState(false);
+  const setRole = useCallback((role?: RoleType | undefined) => {
+    setRoleState(role);
+    if (!role) {
       removeAccessTokenAndRefreshTokenFromLocalStorage();
     }
   }, []);
 
+  const isAuth = Boolean(role);
+
   // If we use React 19 and Nextjs 15, will not need AppContext.Provider, only need AppContext
   return (
-    <AppContext.Provider value={{ isAuth, setIsAuth }}>
+    <AppContext.Provider value={{ role, setRole, isAuth }}>
       <QueryClientProvider client={queryClient}>
         {children}
         <RefreshToken />

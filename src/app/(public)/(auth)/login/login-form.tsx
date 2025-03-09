@@ -24,7 +24,7 @@ export default function LoginForm() {
   const loginMutation = useLoginMutation();
   const searchParams = useSearchParams();
   const clearTokens = searchParams.get("clearTokens");
-  const { setIsAuth } = useAppContext();
+  const { setRole } = useAppContext();
 
   // when click on submit, react-hook-form will validate form by zod schema at client side first
   const form = useForm<LoginBodyType>({
@@ -39,9 +39,9 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (clearTokens) {
-      setIsAuth(false);
+      setRole();
     }
-  }, [clearTokens, setIsAuth]);
+  }, [clearTokens, setRole]);
 
   const onSubmit = async (data: LoginBodyType) => {
     // when submit, from client, zod schema will validate form input data first
@@ -52,7 +52,7 @@ export default function LoginForm() {
       toast({
         description: result.payload.message,
       });
-      setIsAuth(true);
+      setRole(result.payload.data.account.role);
       router.push("/manage/dashboard");
     } catch (error: any) {
       // pass the zod validation, but call api not successfully, will go to this catch error

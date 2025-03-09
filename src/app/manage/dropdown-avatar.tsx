@@ -27,7 +27,7 @@ const account = {
 export default function DropdownAvatar() {
   const logoutMutation = useLogoutMutation();
   const router = useRouter();
-  const { setIsAuth } = useAppContext();
+  const { setRole } = useAppContext();
 
   // use custome hook to get profile
   const { data } = useAccountMe();
@@ -39,7 +39,7 @@ export default function DropdownAvatar() {
       // after calling logout api, not need to delete AT & RF from Local Storage
       // because they have been deleted in `request` constant in 'http.ts' file
       await logoutMutation.mutateAsync();
-      setIsAuth(false); // reset isAuth state from AppContext
+      setRole(); // reset role state from AppContext
 
       // after logout successfully, navigate to home page
       router.push("/");
