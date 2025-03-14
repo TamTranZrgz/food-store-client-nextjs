@@ -8,6 +8,19 @@ import { RoleType } from "@/types/jwt.types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
 const menuItems: {
   title: string;
   href: string;
@@ -21,6 +34,11 @@ const menuItems: {
   {
     title: "Menu",
     href: "/guest/menu",
+    role: [Role.Guest],
+  },
+  {
+    title: "Don hang",
+    href: "/guest/orders",
     role: [Role.Guest],
   },
   {
@@ -85,9 +103,23 @@ export default function NavItems({ className }: { className?: string }) {
         return null;
       })}
       {role && (
-        <div className={cn(className, "cursor-pointer")} onClick={logout}>
-          Dang xuat
-        </div>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <div className={cn(className, "cursor-pointer")}>Dang xuat</div>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Ban co muon dang xuat khong?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Viec dang xuat co the lam mat di hoa don cua ban.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Thoat</AlertDialogCancel>
+              <AlertDialogAction onClick={logout}>OK</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       )}
     </>
   );
