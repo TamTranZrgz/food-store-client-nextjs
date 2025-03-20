@@ -51,9 +51,17 @@ import {
 } from "@/components/ui/popover";
 import { endOfDay, format, startOfDay } from "date-fns";
 import TableSkeleton from "@/app/manage/orders/table-skeleton";
-import { GuestCreateOrdersResType } from "@/schemaValidations/guest.schema";
-import { useGetOrderListQuery } from "@/queries/useOrder";
+import {
+  GuestCreateOrdersResType,
+  GuestGetOrdersResType,
+} from "@/schemaValidations/guest.schema";
+import {
+  useGetOrderListQuery,
+  useUpdateOrderMutation,
+} from "@/queries/useOrder";
 import { useGetTableList } from "@/queries/useTable";
+import socket from "@/lib/socket";
+import { toast } from "@/hooks/use-toast";
 
 export const OrderTableContext = createContext({
   setOrderIdEdit: (value: number | undefined) => {},
@@ -81,6 +89,7 @@ export type ServingGuestByTableNumber = Record<number, OrderObjectByGuestID>;
 const PAGE_SIZE = 10;
 const initFromDate = startOfDay(new Date()); // fetch order list of only today
 const initToDate = endOfDay(new Date());
+
 export default function OrderTable() {
   const searchParam = useSearchParams();
   const [openStatusFilter, setOpenStatusFilter] = useState(false);
@@ -97,6 +106,9 @@ export default function OrderTable() {
     fromDate,
     toDate,
   });
+
+  const refetchOrderList = orderListQuery.refetch;
+
   const orderList = orderListQuery.data?.payload.data ?? [];
 
   const tableListQuery = useGetTableList();
@@ -115,6 +127,8 @@ export default function OrderTable() {
     pageSize: PAGE_SIZE, //default page size
   });
 
+  const updateOrderMutation = useUpdateOrderMutation();
+
   const { statics, orderObjectByGuestId, servingGuestByTableNumber } =
     useOrderService(orderList);
 
@@ -123,7 +137,15 @@ export default function OrderTable() {
     dishId: number;
     status: (typeof OrderStatusValues)[number];
     quantity: number;
-  }) => {};
+  }) => {
+    try {
+      await updateOrderMutation.mutateAsync(body);
+    } catch (error) {
+      handleErrorApi({
+        error,
+      });
+    }
+  };
 
   const table = useReactTable({
     data: orderList,
@@ -158,6 +180,74 @@ export default function OrderTable() {
     setFromDate(initFromDate);
     setToDate(initToDate);
   };
+
+  useEffect(() => {
+    if (socket.connected) {
+      onConnect();
+    }
+
+    function onConnect() {
+      console.log(socket.id);
+    }
+
+    function onDisconnect() {
+      console.log("disconnect");
+    }
+
+    function refetch() {
+      const now = new Date();
+      if (now >= fromDate && now <= toDate) {
+        refetchOrderList();
+      }
+    }
+
+    function onUpdateOrder(data: UpdateOrderResType["data"]) {
+      console.log(data);
+      const {
+        dishSnapshot: { name },
+        quantity,
+      } = data;
+      toast({
+        description: `Đơn hàng ${name} (SL: ${quantity}) của bạn đã được cập nhật sang trang thai ${getVietnameseOrderStatus(
+          data.status
+        )}`,
+      });
+      refetch(); // refetch api to update order state when server sends event
+    }
+
+    function onNewOrder(data: GuestCreateOrdersResType["data"]) {
+      const { guest } = data[0];
+      toast({
+        description: `Guest ${guest?.name} at ${guest?.tableNumber} table has just booked ${data.length} orders`,
+      });
+      refetch();
+    }
+
+    function onPayment(data: PayGuestOrdersResType["data"]) {
+      const { guest } = data[0];
+      toast({
+        description: `Guest ${guest?.name} at ${guest?.tableNumber} table has just paid ${data.length} orders`,
+      });
+      refetch();
+    }
+
+    // receive event from server
+    socket.on("update-order", onUpdateOrder);
+    socket.on("new-order", onNewOrder);
+
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
+
+    socket.on("payment", onPayment);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
+      socket.off("update-order", onUpdateOrder);
+      socket.off("new-order", onNewOrder);
+      socket.off("payment", onPayment);
+    };
+  }, [refetchOrderList, fromDate, toDate]);
 
   return (
     <OrderTableContext.Provider

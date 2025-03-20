@@ -18,11 +18,14 @@ import {
 import { RoleType } from "@/types/jwt.types";
 import { boolean } from "zod";
 
+// Default
+// staleTime: 0 // time to refetch
+// gc: 5 minutes ( 5 * 1000 * 60) // time that data is deleted after not used
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
     },
   },
 });
