@@ -11,6 +11,7 @@ import { TokenPayload } from "@/types/jwt.types";
 import guestApiRequest from "@/apiRequests/guest";
 import { format } from "date-fns";
 import { BookX, CookingPot, HandCoins, Loader, Truck } from "lucide-react";
+import { io } from "socket.io-client";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -78,6 +79,7 @@ export const removeAccessTokenAndRefreshTokenFromLocalStorage = () => {
 export const checkAndRefreshToken = async (param?: {
   onError?: () => void;
   onSuccess?: () => void;
+  force?: boolean;
 }) => {
   // Keep logic to get accessToken and refreshToken inside this function
   // So everuting time this function is called, it will get new accessToken and refreshToken
@@ -94,7 +96,7 @@ export const checkAndRefreshToken = async (param?: {
 
   // time to expire of token calculated by epoch time (s)
   // if using new Date(.getTime()), it will return time in ms
-  const now = new Date().getTime() / 1000 - 1;
+  const now = Math.round(new Date().getTime() / 1000);
 
   // if refreshToken is expired, will not continue, and log out
   // refeshToken expires, tokens from cookies will be deleted, but tokens from LS not, so we need to remove it
@@ -109,8 +111,9 @@ export const checkAndRefreshToken = async (param?: {
   // remaining time = decodedAcessToken.exp - now
   // time to expire of accessToken: decodedAcessToken.exp - decodedAcessToken.iat
   if (
+    param?.force ||
     decodedAccessToken.exp - now <
-    (decodedAccessToken.exp - decodedAccessToken.iat) / 3
+      (decodedAccessToken.exp - decodedAccessToken.iat) / 3
   ) {
     // call api refrshToken
     try {
@@ -217,6 +220,14 @@ export const formatDateTimeToLocaleString = (date: string | Date) => {
 
 export const formatDateTimeToTimeString = (date: string | Date) => {
   return format(date instanceof Date ? date : new Date(date), "HH:mm:ss");
+};
+
+export const generateSocketInstance = (accessToken: string) => {
+  return io(envConfig.NEXT_PUBLIC_API_ENDPOINT, {
+    auth: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 };
 
 export const OrderStatusIcon = {

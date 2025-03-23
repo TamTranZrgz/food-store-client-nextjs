@@ -5,7 +5,6 @@ import { useGuestGetOrderListQuery } from "@/queries/useGuest";
 import { formatCurrency, getVietnameseOrderStatus } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useMemo } from "react";
-import socket from "@/lib/socket";
 import {
   PayGuestOrdersResType,
   UpdateOrderResType,
@@ -13,8 +12,10 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { OrderStatus } from "@/constants/type";
 import Quantity from "../menu/quantity";
+import { useAppContext } from "@/components/app-provider";
 
 export default function OrdersCart() {
+  const { socket } = useAppContext();
   const { data, refetch } = useGuestGetOrderListQuery();
   // console.log(data);
   const orders = useMemo(() => data?.payload.data || [], [data]);
@@ -66,12 +67,12 @@ export default function OrdersCart() {
   }, [orders]);
 
   useEffect(() => {
-    if (socket.connected) {
+    if (socket?.connected) {
       onConnect();
     }
 
     function onConnect() {
-      console.log(socket.id);
+      console.log(socket?.id);
     }
 
     function onDisconnect() {
@@ -101,18 +102,18 @@ export default function OrdersCart() {
     }
 
     // receive event from server
-    socket.on("update-order", onUpdateOrder);
-    socket.on("payment", onPayment);
+    socket?.on("update-order", onUpdateOrder);
+    socket?.on("payment", onPayment);
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+    socket?.on("connect", onConnect);
+    socket?.on("disconnect", onDisconnect);
 
     return () => {
-      socket.off("update-order", onUpdateOrder);
-      socket.off("payment", onPayment);
+      socket?.off("update-order", onUpdateOrder);
+      socket?.off("payment", onPayment);
 
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
+      socket?.off("connect", onConnect);
+      socket?.off("disconnect", onDisconnect);
     };
   }, [refetch]);
 

@@ -27,7 +27,7 @@ const account = {
 export default function DropdownAvatar() {
   const logoutMutation = useLogoutMutation();
   const router = useRouter();
-  const { setRole } = useAppContext();
+  const { setRole, disconnectSocket } = useAppContext();
 
   // use custome hook to get profile
   const { data } = useAccountMe();
@@ -40,6 +40,7 @@ export default function DropdownAvatar() {
       // because they have been deleted in `request` constant in 'http.ts' file
       await logoutMutation.mutateAsync();
       setRole(); // reset role state from AppContext
+      disconnectSocket();
 
       // after logout successfully, navigate to home page
       router.push("/");

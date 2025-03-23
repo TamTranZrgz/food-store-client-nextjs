@@ -8,15 +8,18 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import {
   decodeToken,
+  generateSocketInstance,
   getAccessTokenFromLocalStorage,
   removeAccessTokenAndRefreshTokenFromLocalStorage,
 } from "@/lib/utils";
 import { RoleType } from "@/types/jwt.types";
-import { boolean } from "zod";
+import type { Socket } from "socket.io-client";
+import ListenLogoutSocket from "@/components/listen-logout-socket";
 
 // Default
 // staleTime: 0 // time to refetch
@@ -34,6 +37,9 @@ const AppContext = createContext({
   isAuth: false,
   role: undefined as RoleType | undefined, // not login
   setRole: (role?: RoleType | undefined) => {},
+  socket: undefined as Socket | undefined,
+  setSocket: (socket?: Socket | undefined) => {},
+  disconnectSocket: () => {},
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -43,15 +49,26 @@ export default function AppProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const [socket, setSocket] = useState<Socket | undefined>();
   const [role, setRoleState] = useState<RoleType | undefined>();
+  const count = useRef(0);
 
   useEffect(() => {
-    const accessToken = getAccessTokenFromLocalStorage();
-    if (accessToken) {
-      const role = decodeToken(accessToken).role;
-      setRoleState(role);
+    if (count.current === 0) {
+      const accessToken = getAccessTokenFromLocalStorage();
+      if (accessToken) {
+        const role = decodeToken(accessToken).role;
+        setRoleState(role);
+        setSocket(generateSocketInstance(accessToken));
+      }
     }
-  }, [setRoleState]);
+    count.current++;
+  }, []);
+
+  const disconnectSocket = useCallback(() => {
+    socket?.disconnect();
+    setSocket(undefined);
+  }, [socket, setSocket]);
 
   // If us nextjs 15 and react 19, will no need to useCallback
   const setRole = useCallback((role?: RoleType | undefined) => {
@@ -65,10 +82,13 @@ export default function AppProvider({
 
   // If we use React 19 and Nextjs 15, will not need AppContext.Provider, only need AppContext
   return (
-    <AppContext.Provider value={{ role, setRole, isAuth }}>
+    <AppContext.Provider
+      value={{ role, setRole, isAuth, socket, setSocket, disconnectSocket }}
+    >
       <QueryClientProvider client={queryClient}>
         {children}
         <RefreshToken />
+        <ListenLogoutSocket />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </AppContext.Provider>

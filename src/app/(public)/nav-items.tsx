@@ -19,7 +19,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 
 const menuItems: {
   title: string;
@@ -61,7 +60,7 @@ const menuItems: {
 // Fix this problem: use useEffect to chech state of client (state of local storage)
 
 export default function NavItems({ className }: { className?: string }) {
-  const { role, setRole } = useAppContext();
+  const { role, setRole, disconnectSocket } = useAppContext();
   const logoutMutation = useLogoutMutation();
   const router = useRouter();
 
@@ -72,6 +71,7 @@ export default function NavItems({ className }: { className?: string }) {
       // because they have been deleted in `request` constant in 'http.ts' file
       await logoutMutation.mutateAsync();
       setRole(); // reset role state from AppContext
+      disconnectSocket();
 
       // after logout successfully, navigate to home page
       router.push("/");
