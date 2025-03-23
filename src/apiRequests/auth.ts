@@ -66,6 +66,9 @@ const authApiRequest = {
       data: result.payload.data,
     };
   },
+
+  setTokensToCookies: (body: { accessToken: string; refreshToken: string }) =>
+    http.post("/api/auth/token", body, { baseUrl: "" }),
 };
 
 export default authApiRequest;
