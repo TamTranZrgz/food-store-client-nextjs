@@ -7,12 +7,13 @@
 
 ## Packages:
 
-- shadcn/ui
+- shadcn/ui: UI
 - jsonwebtoken
 - react-hook-form
-- zod
+- zod: schema validation
 - react-query
 - lucide-react
+- zustand: state management
 
 ## Reference:
 

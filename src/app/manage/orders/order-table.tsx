@@ -61,7 +61,7 @@ import {
 } from "@/queries/useOrder";
 import { useGetTableList } from "@/queries/useTable";
 import { toast } from "@/hooks/use-toast";
-import { useAppContext } from "@/components/app-provider";
+import { useAppStore } from "@/components/app-provider";
 
 export const OrderTableContext = createContext({
   setOrderIdEdit: (value: number | undefined) => {},
@@ -91,7 +91,8 @@ const initFromDate = startOfDay(new Date()); // fetch order list of only today
 const initToDate = endOfDay(new Date());
 
 export default function OrderTable() {
-  const { socket } = useAppContext();
+  const socket = useAppStore((state) => state.socket);
+
   const searchParam = useSearchParams();
   const [openStatusFilter, setOpenStatusFilter] = useState(false);
 

@@ -12,10 +12,11 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { OrderStatus } from "@/constants/type";
 import Quantity from "../menu/quantity";
-import { useAppContext } from "@/components/app-provider";
+import { useAppStore } from "@/components/app-provider";
 
 export default function OrdersCart() {
-  const { socket } = useAppContext();
+  const socket = useAppStore((state) => state.socket);
+
   const { data, refetch } = useGuestGetOrderListQuery();
   // console.log(data);
   const orders = useMemo(() => data?.payload.data || [], [data]);

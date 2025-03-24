@@ -1,6 +1,6 @@
 "use client";
 import menuItems from "@/app/manage/menuItems";
-import { useAppContext } from "@/components/app-provider";
+import { useAppStore } from "@/components/app-provider";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,7 +18,7 @@ import { usePathname } from "next/navigation";
 export default function MobileNavLinks() {
   const pathname = usePathname();
 
-  const { role } = useAppContext();
+  const role = useAppStore((state) => state.role);
   // console.log(role);
 
   return (
@@ -36,7 +36,7 @@ export default function MobileNavLinks() {
         </SheetHeader>
         <nav className="grid gap-6 text-lg font-medium">
           <Link
-            href="#"
+            href="/"
             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
           >
             <Package2 className="h-5 w-5 transition-all group-hover:scale-110" />

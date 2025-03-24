@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useLogoutMutation } from "@/queries/useAuth";
 import { handleErrorApi } from "@/lib/utils";
 import { useAccountMe } from "@/queries/useAccount";
-import { useAppContext } from "@/components/app-provider";
+import { useAppStore } from "@/components/app-provider";
 
 const account = {
   name: "Nguyễn Văn A",
@@ -27,7 +27,9 @@ const account = {
 export default function DropdownAvatar() {
   const logoutMutation = useLogoutMutation();
   const router = useRouter();
-  const { setRole, disconnectSocket } = useAppContext();
+
+  const setRole = useAppStore((state) => state.setRole);
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
 
   // use custome hook to get profile
   const { data } = useAccountMe();

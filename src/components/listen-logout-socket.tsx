@@ -2,7 +2,7 @@ import { useLogoutMutation } from "@/queries/useAuth";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import type { Socket } from "socket.io-client";
-import { useAppContext } from "./app-provider";
+import { useAppStore } from "./app-provider";
 import { handleErrorApi } from "@/lib/utils";
 
 // Pages which will not check refresh-token
@@ -12,7 +12,10 @@ export default function ListenLogoutSocket() {
   const pathname = usePathname();
   const router = useRouter();
   const { isPending, mutateAsync } = useLogoutMutation();
-  const { setRole, socket, disconnectSocket } = useAppContext();
+
+  const socket = useAppStore((state) => state.socket);
+  const setRole = useAppStore((state) => state.setRole);
+  const disconnectSocket = useAppStore((state) => state.disconnectSocket);
 
   useEffect(() => {
     if (UNAUTHENTICATED_PATHS.includes(pathname)) return;

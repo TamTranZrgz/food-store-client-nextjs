@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useAppContext } from "@/components/app-provider";
+import { useAppStore } from "@/components/app-provider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { decodeToken, generateSocketInstance } from "@/lib/utils";
 import { toast } from "@/hooks/use-toast";
@@ -11,7 +11,10 @@ export default function OauthPage() {
   const { mutateAsync } = useSetTokensToCookiesMutation();
   const router = useRouter();
   const count = useRef(0);
-  const { setRole, setSocket } = useAppContext();
+
+  const setRole = useAppStore((state) => state.setRole);
+  const setSocket = useAppStore((state) => state.setSocket);
+
   const searchParams = useSearchParams();
   const accessToken = searchParams.get("accessToken");
   const refreshToken = searchParams.get("refreshToken");

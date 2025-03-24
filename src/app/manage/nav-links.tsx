@@ -1,6 +1,6 @@
 "use client";
 import menuItems from "@/app/manage/menuItems";
-import { useAppContext } from "@/components/app-provider";
+import { useAppStore } from "@/components/app-provider";
 import {
   Tooltip,
   TooltipContent,
@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 
 export default function NavLinks() {
   const pathname = usePathname(); // Pathname => Ex: /manage/dashboard
-  const { role } = useAppContext();
+  const role = useAppStore((state) => state.role);
   // console.log(role);
 
   return (
