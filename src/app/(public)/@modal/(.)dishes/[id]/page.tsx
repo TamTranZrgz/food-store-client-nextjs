@@ -1,6 +1,7 @@
 import dishApiRequest from "@/apiRequests/dish";
 import { wrapServerApi } from "@/lib/utils";
-import DishDetail from "./dish-detail";
+import Modal from "./modal";
+import DishDetail from "@/app/(public)/dishes/[id]/dish-detail";
 
 export default async function DishPage({
   params: { id },
@@ -10,5 +11,9 @@ export default async function DishPage({
   const data = await wrapServerApi(() => dishApiRequest.getDish(Number(id)));
   const dish = data?.payload.data;
 
-  return <DishDetail dish={dish} />;
+  return (
+    <Modal>
+      <DishDetail dish={dish} />
+    </Modal>
+  );
 }
