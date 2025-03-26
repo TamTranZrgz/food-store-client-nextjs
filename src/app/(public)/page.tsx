@@ -3,6 +3,7 @@ import bannerImg from "@/assets/images/banner.png";
 import dishApiRequest from "@/apiRequests/dish";
 import { DishListResType } from "@/schemaValidations/dish.schema";
 import Link from "next/link";
+
 import { getTranslations } from "next-intl/server";
 
 export default async function Home() {

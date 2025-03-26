@@ -1,14 +1,14 @@
 {
   "HomePage": {
-    "title": "Restaurante GoodFill"
+    "title": "Restaurante GoodFill "
   },
   "LoginPage": {
-    "title": "Iniciar sesión"
+    "title": "Inicia session"
   },
   "SwitchLanguage": {
-    "title": "Cambia idioma",
-    "en": "Ingles",
+    "title": "Cambia Idioma",
+    "en": "Inglés",
     "vi": "Vietnamita",
-    "es": "Espanol"
+    "es": "Español"
   }
 }
