@@ -77,7 +77,7 @@ const AccountTableContext = createContext<{
 export const columns: ColumnDef<AccountType>[] = [
   {
     id: "stt",
-    header: "STT",
+    header: "No",
     cell: ({ row }) => {
       return <>{row.index + 1}</>;
     },
@@ -102,7 +102,7 @@ export const columns: ColumnDef<AccountType>[] = [
   },
   {
     accessorKey: "name",
-    header: "Tên",
+    header: "Name",
     cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
   },
   {
@@ -143,9 +143,9 @@ export const columns: ColumnDef<AccountType>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={openEditEmployee}>Sửa</DropdownMenuItem>
+            <DropdownMenuItem onClick={openEditEmployee}>Edit</DropdownMenuItem>
             <DropdownMenuItem onClick={openDeleteEmployee}>
-              Xóa
+              Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -187,13 +187,13 @@ function AlertDialogDeleteAccount({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xóa nhân viên?</AlertDialogTitle>
+          <AlertDialogTitle>Delete employee?</AlertDialogTitle>
           <AlertDialogDescription>
-            Tài khoản{" "}
+            Account{" "}
             <span className="bg-foreground text-primary-foreground rounded px-1">
               {employeeDelete?.name}
             </span>{" "}
-            sẽ bị xóa vĩnh viễn
+            will be deleted permanently
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -346,9 +346,8 @@ export default function AccountTable() {
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="text-xs text-muted-foreground py-4 flex-1 ">
-            Hiển thị{" "}
-            <strong>{table.getPaginationRowModel().rows.length}</strong> trong{" "}
-            <strong>{data.length}</strong> kết quả
+            Display <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+            in <strong>{data.length}</strong> results
           </div>
           <div>
             <AutoPagination

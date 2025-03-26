@@ -12,6 +12,7 @@ import {
 import DarkModeToggle from "@/components/dark-mode-toggle";
 import NavItems from "@/app/(public)/nav-items";
 import React from "react";
+import { SwitchLanguage } from "@/components/switch-language";
 
 export default function Layout({
   children,
@@ -29,7 +30,7 @@ export default function Layout({
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
             <Package2 className="h-6 w-6" />
-            <span className="sr-only">Big boy</span>
+            <span className="sr-only">Good Fill</span>
           </Link>
           <NavItems className="text-muted-foreground transition-colors hover:text-foreground flex-shrink-0" />
         </nav>
@@ -55,14 +56,15 @@ export default function Layout({
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
-                <span className="sr-only">Big boy</span>
+                <span className="sr-only">Good Fill</span>
               </Link>
 
               <NavItems className="text-muted-foreground transition-colors hover:text-foreground" />
             </nav>
           </SheetContent>
         </Sheet>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-4">
+          <SwitchLanguage />
           <DarkModeToggle />
         </div>
       </header>

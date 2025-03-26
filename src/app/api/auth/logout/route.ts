@@ -14,7 +14,7 @@ export async function POST(request: Request) {
   if (!accessToken || !refreshToken) {
     return Response.json(
       {
-        message: "Khong nhan duoc access token va refresh token",
+        message: "Not receive access token and refresh token",
       },
       {
         status: 200,
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
   } catch (error) {
     return Response.json(
       {
-        message: "Loi khi goi api den server backend",
+        message: "Error calling api to server backend",
       },
       {
         status: 200,

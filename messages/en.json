@@ -1,0 +1,14 @@
+{
+  "HomePage": {
+    "title": "GoodFill Restaurant"
+  },
+  "LoginPage": {
+    "title": "Login"
+  },
+  "SwitchLanguage": {
+    "title": "Switch language",
+    "en": "English",
+    "vi": "Vietnamese",
+    "es": "Spanish"
+  }
+}

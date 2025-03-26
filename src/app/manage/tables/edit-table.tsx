@@ -122,7 +122,7 @@ export default function EditTable({
         }}
       >
         <DialogHeader>
-          <DialogTitle>Cập nhật bàn ăn</DialogTitle>
+          <DialogTitle>Update table</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -136,7 +136,7 @@ export default function EditTable({
             <div className="grid gap-4 py-4">
               <FormItem>
                 <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                  <Label htmlFor="name">Số hiệu bàn</Label>
+                  <Label htmlFor="name">Table number</Label>
                   <div className="col-span-3 w-full space-y-2">
                     <Input
                       id="number"
@@ -155,7 +155,7 @@ export default function EditTable({
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="price">Sức chứa (người)</Label>
+                      <Label htmlFor="price">No of guest</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Input
                           id="capacity"
@@ -175,7 +175,7 @@ export default function EditTable({
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="description">Trạng thái</Label>
+                      <Label htmlFor="description">State</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Select
                           onValueChange={field.onChange}
@@ -208,7 +208,7 @@ export default function EditTable({
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="price">Đổi QR Code</Label>
+                      <Label htmlFor="price">Change QR Code</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <div className="flex items-center space-x-2">
                           <Switch
@@ -239,7 +239,7 @@ export default function EditTable({
               </FormItem>
               <FormItem>
                 <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                  <Label>URL gọi món</Label>
+                  <Label>Order URL</Label>
                   <div className="col-span-3 w-full space-y-2">
                     {data && (
                       <Link

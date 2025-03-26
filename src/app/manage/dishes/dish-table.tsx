@@ -93,19 +93,19 @@ export const columns: ColumnDef<DishItem>[] = [
   },
   {
     accessorKey: "name",
-    header: "Tên",
+    header: "Name",
     cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
   },
   {
     accessorKey: "price",
-    header: "Giá cả",
+    header: "Price",
     cell: ({ row }) => (
       <div className="capitalize">{formatCurrency(row.getValue("price"))}</div>
     ),
   },
   {
     accessorKey: "description",
-    header: "Mô tả",
+    header: "Description",
     cell: ({ row }) => (
       <div
         dangerouslySetInnerHTML={{
@@ -117,7 +117,7 @@ export const columns: ColumnDef<DishItem>[] = [
   },
   {
     accessorKey: "status",
-    header: "Trạng thái",
+    header: "Status",
     cell: ({ row }) => (
       <div>{getVietnameseDishStatus(row.getValue("status"))}</div>
     ),
@@ -145,8 +145,8 @@ export const columns: ColumnDef<DishItem>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={openEditDish}>Sửa</DropdownMenuItem>
-            <DropdownMenuItem onClick={openDeleteDish}>Xóa</DropdownMenuItem>
+            <DropdownMenuItem onClick={openEditDish}>Edit</DropdownMenuItem>
+            <DropdownMenuItem onClick={openDeleteDish}>Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -190,13 +190,13 @@ function AlertDialogDeleteDish({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xóa món ăn?</AlertDialogTitle>
+          <AlertDialogTitle>Delete dish?</AlertDialogTitle>
           <AlertDialogDescription>
-            Món{" "}
+            Dish{" "}
             <span className="bg-foreground text-primary-foreground rounded px-1">
               {dishDelete?.name}
             </span>{" "}
-            sẽ bị xóa vĩnh viễn
+            will be deleted permanently
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -333,9 +333,8 @@ export default function DishTable() {
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="text-xs text-muted-foreground py-4 flex-1 ">
-            Hiển thị{" "}
-            <strong>{table.getPaginationRowModel().rows.length}</strong> trong{" "}
-            <strong>{data.length}</strong> kết quả
+            Display <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+            in <strong>{data.length}</strong> results
           </div>
           <div>
             <AutoPagination

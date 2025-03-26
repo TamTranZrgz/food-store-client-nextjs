@@ -49,7 +49,7 @@ export async function POST(request: Request) {
     // console.log(error);
     return Response.json(
       {
-        message: error.message ?? "Co loi xay ra",
+        message: error.message ?? "Error",
       },
       {
         status: 401,

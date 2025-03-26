@@ -27,7 +27,7 @@ const menuItems: {
   hideWhenLogined?: boolean;
 }[] = [
   {
-    title: "Trang chu",
+    title: "Home",
     href: "/", // authRequired = undefined, this menu will appear whenever login or not logined
   },
   {
@@ -36,17 +36,17 @@ const menuItems: {
     role: [Role.Guest],
   },
   {
-    title: "Don hang",
+    title: "Orders",
     href: "/guest/orders",
     role: [Role.Guest],
   },
   {
-    title: "Đăng nhập",
+    title: "Login",
     href: "/login",
     hideWhenLogined: true,
   },
   {
-    title: "Quản lý",
+    title: "Dashboard",
     href: "/manage/dashboard",
     role: [Role.Owner, Role.Employee],
   },
@@ -108,17 +108,17 @@ export default function NavItems({ className }: { className?: string }) {
       {role && (
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <div className={cn(className, "cursor-pointer")}>Dang xuat</div>
+            <div className={cn(className, "cursor-pointer")}>Logout</div>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Ban co muon dang xuat khong?</AlertDialogTitle>
+              <AlertDialogTitle>Do you want to logout?</AlertDialogTitle>
               <AlertDialogDescription>
-                Viec dang xuat co the lam mat di hoa don cua ban.
+                Logout can cause loosing your orders.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Thoat</AlertDialogCancel>
+              <AlertDialogCancel>Exit</AlertDialogCancel>
               <AlertDialogAction onClick={logout}>OK</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

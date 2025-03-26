@@ -44,7 +44,7 @@ type DishItem = DishListResType["data"][0];
 export const columns: ColumnDef<DishItem>[] = [
   {
     id: "dishName",
-    header: "Món ăn",
+    header: "Dish",
     cell: ({ row }) => (
       <div className="flex items-center space-x-4">
         <Image
@@ -64,14 +64,14 @@ export const columns: ColumnDef<DishItem>[] = [
   },
   {
     accessorKey: "price",
-    header: "Giá cả",
+    header: "Price",
     cell: ({ row }) => (
       <div className="capitalize">{formatCurrency(row.getValue("price"))}</div>
     ),
   },
   {
     accessorKey: "status",
-    header: "Trạng thái",
+    header: "Status",
     cell: ({ row }) => (
       <div>{getVietnameseDishStatus(row.getValue("status"))}</div>
     ),
@@ -136,11 +136,11 @@ export function DishesDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Thay đổi</Button>
+        <Button variant="outline">Change</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-full overflow-auto">
         <DialogHeader>
-          <DialogTitle>Chọn món ăn</DialogTitle>
+          <DialogTitle>Choose dishes</DialogTitle>
         </DialogHeader>
         <div>
           <div className="w-full">
@@ -213,9 +213,9 @@ export function DishesDialog({
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="text-xs text-muted-foreground py-4 flex-1 ">
-                Hiển thị{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-                trong <strong>{data.length}</strong> kết quả
+                Display{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong> in{" "}
+                <strong>{data.length}</strong> result
               </div>
               <div>
                 <AutoPagination

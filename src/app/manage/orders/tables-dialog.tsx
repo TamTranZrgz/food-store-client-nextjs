@@ -126,11 +126,11 @@ export function TablesDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Thay đổi</Button>
+        <Button variant="outline">Change</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-full overflow-auto">
         <DialogHeader>
-          <DialogTitle>Chọn bàn</DialogTitle>
+          <DialogTitle>Choose table</DialogTitle>
         </DialogHeader>
         <div>
           <div className="w-full">
@@ -213,9 +213,9 @@ export function TablesDialog({
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="text-xs text-muted-foreground py-4 flex-1 ">
-                Hiển thị{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-                trong <strong>{data.length}</strong> kết quả
+                Display{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong> in{" "}
+                <strong>{data.length}</strong> results
               </div>
               <div>
                 <AutoPagination

@@ -89,7 +89,7 @@ export default function AddTable() {
         <Button size="sm" className="h-7 gap-1">
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Thêm bàn
+            Add table
           </span>
         </Button>
       </DialogTrigger>
@@ -98,7 +98,7 @@ export default function AddTable() {
         onCloseAutoFocus={() => form.reset()}
       >
         <DialogHeader>
-          <DialogTitle>Thêm bàn</DialogTitle>
+          <DialogTitle>Add table</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -117,7 +117,7 @@ export default function AddTable() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="name">Số hiệu bàn</Label>
+                      <Label htmlFor="name">Table number</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Input
                           id="number"
@@ -137,7 +137,7 @@ export default function AddTable() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="price">Lượng khách cho phép</Label>
+                      <Label htmlFor="price">No of guest</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Input
                           id="capacity"
@@ -157,7 +157,7 @@ export default function AddTable() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="description">Trạng thái</Label>
+                      <Label htmlFor="description">State</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Select
                           onValueChange={field.onChange}
@@ -188,7 +188,7 @@ export default function AddTable() {
         </Form>
         <DialogFooter>
           <Button type="submit" form="add-table-form">
-            Thêm
+            Add
           </Button>
         </DialogFooter>
       </DialogContent>

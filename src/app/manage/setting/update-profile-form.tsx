@@ -111,7 +111,7 @@ export default function UpdateProfileForm() {
       >
         <Card x-chunk="dashboard-07-chunk-0">
           <CardHeader>
-            <CardTitle>Thông tin cá nhân</CardTitle>
+            <CardTitle>Profile</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-6">
@@ -164,7 +164,7 @@ export default function UpdateProfileForm() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid gap-3">
-                      <Label htmlFor="name">Tên</Label>
+                      <Label htmlFor="name">Name</Label>
                       <Input
                         id="name"
                         type="text"
@@ -179,10 +179,10 @@ export default function UpdateProfileForm() {
 
               <div className=" items-center gap-2 md:ml-auto flex">
                 <Button variant="outline" size="sm" type="reset">
-                  Hủy
+                  Cancel
                 </Button>
                 <Button size="sm" type="submit">
-                  Lưu thông tin
+                  Save
                 </Button>
               </div>
             </div>

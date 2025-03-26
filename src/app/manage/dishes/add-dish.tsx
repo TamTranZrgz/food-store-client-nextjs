@@ -124,13 +124,13 @@ export default function AddDish() {
         <Button size="sm" className="h-7 gap-1">
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Thêm món ăn
+            Add new dish
           </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-screen overflow-auto">
         <DialogHeader>
-          <DialogTitle>Thêm món ăn</DialogTitle>
+          <DialogTitle>Add new dish</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form
@@ -189,7 +189,7 @@ export default function AddDish() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="name">Tên món ăn</Label>
+                      <Label htmlFor="name">Dish's name</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Input id="name" className="w-full" {...field} />
                         <FormMessage />
@@ -204,7 +204,7 @@ export default function AddDish() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="price">Giá</Label>
+                      <Label htmlFor="price">Price</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Input
                           id="price"
@@ -224,7 +224,7 @@ export default function AddDish() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                      <Label htmlFor="description">Mô tả sản phẩm</Label>
+                      <Label htmlFor="description">Description</Label>
                       <div className="col-span-3 w-full space-y-2">
                         <Textarea
                           id="description"
@@ -274,7 +274,7 @@ export default function AddDish() {
         </Form>
         <DialogFooter>
           <Button type="submit" form="add-dish-form">
-            Thêm
+            Add
           </Button>
         </DialogFooter>
       </DialogContent>

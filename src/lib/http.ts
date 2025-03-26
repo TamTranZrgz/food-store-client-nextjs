@@ -55,7 +55,7 @@ export class EntityError extends HttpError {
     status: typeof ENTITY_ERROR_STATUS;
     payload: EntityErrorPayload;
   }) {
-    super({ status, payload, message: "Lỗi thực thể" });
+    super({ status, payload, message: "Entity error" });
     this.status = status;
     this.payload = payload;
   }

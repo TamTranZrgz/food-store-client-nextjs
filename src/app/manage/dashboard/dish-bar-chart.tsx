@@ -84,8 +84,8 @@ export function DishBarChart({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Xếp hạng món ăn</CardTitle>
-        <CardDescription>Được gọi nhiều nhất</CardDescription>
+        <CardTitle>Dish ranking</CardTitle>
+        <CardDescription>Most ordered</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

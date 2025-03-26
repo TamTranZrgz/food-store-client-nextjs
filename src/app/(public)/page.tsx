@@ -3,8 +3,11 @@ import bannerImg from "@/assets/images/banner.png";
 import dishApiRequest from "@/apiRequests/dish";
 import { DishListResType } from "@/schemaValidations/dish.schema";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 export default async function Home() {
+  const t = await getTranslations("HomePage");
+
   let dishList: DishListResType["data"] = [];
   // this is home page, so fetch dish as a server component
   try {
@@ -31,17 +34,17 @@ export default async function Home() {
           alt="Banner"
           className="absolute top-0 left-0 w-full h-full object-cover"
         />
-        <div className="z-20 relative py-10 md:py-20 px-4 sm:px-10 md:px-20">
+        <div className="text-white z-20 relative py-10 md:py-20 px-4 sm:px-10 md:px-20">
           <h1 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold">
-            Nhà hàng GoodFill
+            {t("title")}
           </h1>
           <p className="text-center text-sm sm:text-base mt-4">
-            Vị ngon, trọn khoảnh khắc
+            Fill your stomach with love
           </p>
         </div>
       </section>
       <section className="space-y-10 py-16">
-        <h2 className="text-center text-2xl font-bold">Đa dạng các món ăn</h2>
+        <h2 className="text-center text-2xl font-bold">Dish diversification</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {dishList.map((dish) => (
             <Link

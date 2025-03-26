@@ -19,10 +19,9 @@ import { generateSocketInstance, handleErrorApi } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useAppStore } from "@/components/app-provider";
-import socket from "@/lib/socket";
-import { io } from "socket.io-client";
 import envConfig from "@/config";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const getOauthGoogleUrl = () => {
   const rootUrl = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -44,8 +43,12 @@ const getOauthGoogleUrl = () => {
 const googleOauthUrl = getOauthGoogleUrl();
 
 export default function LoginForm() {
+  const t = useTranslations("LoginPage");
+
   const loginMutation = useLoginMutation();
+
   const searchParams = useSearchParams();
+
   const clearTokens = searchParams.get("clearTokens");
 
   const setRole = useAppStore((state) => state.setRole);
@@ -92,9 +95,9 @@ export default function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Đăng nhập</CardTitle>
+        <CardTitle className="text-2xl">{t("title")}</CardTitle>
         <CardDescription>
-          Nhập email và mật khẩu của bạn để đăng nhập vào hệ thống
+          Please enter your email and password to enter the system
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -147,11 +150,11 @@ export default function LoginForm() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Đăng nhập
+                Login
               </Button>
               <Link href={googleOauthUrl}>
                 <Button variant="outline" className="w-full" type="button">
-                  Đăng nhập bằng Google
+                  Login with Google
                 </Button>
               </Link>
             </div>

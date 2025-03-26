@@ -110,8 +110,8 @@ export default function MenuOrder() {
           onClick={handleOrder}
           disabled={orders.length === 0}
         >
-          <span>Dat hang · {orders.length} món</span>
-          <span>{formatCurrency(totalPrice)} đ</span>
+          <span>Order · {orders.length} dishes</span>
+          <span>{formatCurrency(totalPrice)} Eur</span>
         </Button>
       </div>
     </>

@@ -1,0 +1,14 @@
+{
+  "HomePage": {
+    "title": "Nha hang GoodFill"
+  },
+  "LoginPage": {
+    "title": "Dang nhap"
+  },
+  "SwitchLanguage": {
+    "title": "Chuyen ngon ngu",
+    "en": "Tieng Anh",
+    "vi": "Tieng Viet",
+    "es": "Tieng Tay Ban Nha"
+  }
+}

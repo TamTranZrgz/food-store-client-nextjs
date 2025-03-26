@@ -11,7 +11,6 @@ import {
 } from "@/schemaValidations/order.schema";
 import { toast } from "@/hooks/use-toast";
 import { OrderStatus } from "@/constants/type";
-import Quantity from "../menu/quantity";
 import { useAppStore } from "@/components/app-provider";
 
 export default function OrdersCart() {
@@ -87,7 +86,7 @@ export default function OrdersCart() {
         quantity,
       } = data;
       toast({
-        description: `Đơn hàng ${name} (SL: ${quantity}) của bạn đã được cập nhật sang trang thai ${getVietnameseOrderStatus(
+        description: `Your order ${name} (SL: ${quantity}) status has been updated to ${getVietnameseOrderStatus(
           data.status
         )}`,
       });
@@ -97,7 +96,7 @@ export default function OrdersCart() {
     function onPayment(data: PayGuestOrdersResType["data"]) {
       const { guest } = data[0];
       toast({
-        description: `Guest ${guest?.name} at ${guest?.tableNumber} table has just paid successfully ${data.length} orders`,
+        description: `Customer ${guest?.name} at ${guest?.tableNumber} table has paid successfully ${data.length} orders`,
       });
       refetch();
     }
@@ -149,7 +148,7 @@ export default function OrdersCart() {
       ))}
       <div className="sticky bottom-0 ">
         <div className="w-full space-x-4 justify-between text-xl font-semibold">
-          <span>Order not paid - {orderNotPaid.quantity} mon:</span>
+          <span>Order NOT paid - {orderNotPaid.quantity} mon:</span>
           <span>{formatCurrency(orderNotPaid.price)} đ</span>
         </div>
       </div>

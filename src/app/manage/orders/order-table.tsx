@@ -210,7 +210,7 @@ export default function OrderTable() {
         quantity,
       } = data;
       toast({
-        description: `Đơn hàng ${name} (SL: ${quantity}) của bạn đã được cập nhật sang trang thai ${getVietnameseOrderStatus(
+        description: `Your order ${name} (Quantity: ${quantity}) status has been updated to ${getVietnameseOrderStatus(
           data.status
         )}`,
       });
@@ -220,7 +220,7 @@ export default function OrderTable() {
     function onNewOrder(data: GuestCreateOrdersResType["data"]) {
       const { guest } = data[0];
       toast({
-        description: `Guest ${guest?.name} at ${guest?.tableNumber} table has just booked ${data.length} orders`,
+        description: `Customer ${guest?.name} at ${guest?.tableNumber} table has just booked ${data.length} orders`,
       });
       refetch();
     }
@@ -228,7 +228,7 @@ export default function OrderTable() {
     function onPayment(data: PayGuestOrdersResType["data"]) {
       const { guest } = data[0];
       toast({
-        description: `Guest ${guest?.name} at ${guest?.tableNumber} table has just paid ${data.length} orders`,
+        description: `Customer ${guest?.name} at ${guest?.tableNumber} table has just paid ${data.length} orders`,
       });
       refetch();
     }
@@ -272,7 +272,7 @@ export default function OrderTable() {
               <span className="mr-2">Từ</span>
               <Input
                 type="datetime-local"
-                placeholder="Từ ngày"
+                placeholder="From date"
                 className="text-sm"
                 value={format(fromDate, "yyyy-MM-dd HH:mm").replace(" ", "T")}
                 onChange={(event) => setFromDate(new Date(event.target.value))}
@@ -282,7 +282,7 @@ export default function OrderTable() {
               <span className="mr-2">Đến</span>
               <Input
                 type="datetime-local"
-                placeholder="Đến ngày"
+                placeholder="To date"
                 value={format(toDate, "yyyy-MM-dd HH:mm").replace(" ", "T")}
                 onChange={(event) => setToDate(new Date(event.target.value))}
               />
@@ -297,7 +297,7 @@ export default function OrderTable() {
         </div>
         <div className="flex flex-wrap items-center gap-4 py-4">
           <Input
-            placeholder="Tên khách"
+            placeholder="Customer's name"
             value={
               (table.getColumn("guestName")?.getFilterValue() as string) ?? ""
             }
@@ -307,7 +307,7 @@ export default function OrderTable() {
             className="max-w-[100px]"
           />
           <Input
-            placeholder="Số bàn"
+            placeholder="Table"
             value={
               (table.getColumn("tableNumber")?.getFilterValue() as string) ?? ""
             }

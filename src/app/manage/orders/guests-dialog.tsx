@@ -39,7 +39,7 @@ type GuestItem = GetListGuestsResType["data"][0];
 export const columns: ColumnDef<GuestItem>[] = [
   {
     accessorKey: "name",
-    header: "Tên",
+    header: "Name",
     cell: ({ row }) => (
       <div className="capitalize">
         {row.getValue("name")} | (#{row.original.id})
@@ -55,7 +55,7 @@ export const columns: ColumnDef<GuestItem>[] = [
   },
   {
     accessorKey: "tableNumber",
-    header: "Số bàn",
+    header: "Table number",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("tableNumber")}</div>
     ),
@@ -69,7 +69,7 @@ export const columns: ColumnDef<GuestItem>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: () => <div>Tạo</div>,
+    header: () => <div>Create</div>,
     cell: ({ row }) => (
       <div className="flex items-center space-x-4 text-sm">
         {formatDateTimeToLocaleString(row.getValue("createdAt"))}
@@ -155,17 +155,17 @@ export default function GuestsDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Chọn khách</Button>
+        <Button variant="outline">Choose customer</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[700px] max-h-full overflow-auto">
         <DialogHeader>
-          <DialogTitle>Chọn khách hàng</DialogTitle>
+          <DialogTitle>Choose customer</DialogTitle>
         </DialogHeader>
         <div>
           <div className="w-full">
             <div className="flex flex-wrap gap-2">
               <div className="flex items-center">
-                <span className="mr-2">Từ</span>
+                <span className="mr-2">From</span>
                 <Input
                   type="datetime-local"
                   placeholder="Từ ngày"
@@ -177,7 +177,7 @@ export default function GuestsDialog({
                 />
               </div>
               <div className="flex items-center">
-                <span className="mr-2">Đến</span>
+                <span className="mr-2">To</span>
                 <Input
                   type="datetime-local"
                   placeholder="Đến ngày"
@@ -275,9 +275,9 @@ export default function GuestsDialog({
             </div>
             <div className="flex items-center justify-end space-x-2 py-4">
               <div className="text-xs text-muted-foreground py-4 flex-1 ">
-                Hiển thị{" "}
-                <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-                trong <strong>{data.length}</strong> kết quả
+                Display{" "}
+                <strong>{table.getPaginationRowModel().rows.length}</strong> in{" "}
+                <strong>{data.length}</strong> results
               </div>
               <div>
                 <AutoPagination

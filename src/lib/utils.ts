@@ -43,7 +43,7 @@ export const handleErrorApi = ({
   } else {
     toast({
       title: "Lỗi",
-      description: error?.payload?.message ?? "Lỗi không xác định",
+      description: error?.payload?.message ?? "Unidentified error",
       variant: "destructive",
       duration: duration ?? 5000,
     });
@@ -138,6 +138,13 @@ export const formatCurrency = (number: number) => {
   }).format(number);
 };
 
+export const formatCurrencyEUR = (number: number) => {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(number);
+};
+
 export const getVietnameseDishStatus = (
   status: (typeof DishStatus)[keyof typeof DishStatus]
 ) => {
@@ -148,6 +155,19 @@ export const getVietnameseDishStatus = (
       return "Không có sẵn";
     default:
       return "Ẩn";
+  }
+};
+
+export const getDishStatus = (
+  status: (typeof DishStatus)[keyof typeof DishStatus]
+) => {
+  switch (status) {
+    case DishStatus.Available:
+      return "Available";
+    case DishStatus.Unavailable:
+      return "Unavailable";
+    default:
+      return "Hidden";
   }
 };
 
@@ -168,6 +188,23 @@ export const getVietnameseOrderStatus = (
   }
 };
 
+export const getOrderStatus = (
+  status: (typeof OrderStatus)[keyof typeof OrderStatus]
+) => {
+  switch (status) {
+    case OrderStatus.Delivered:
+      return "Delivered";
+    case OrderStatus.Paid:
+      return "Paid";
+    case OrderStatus.Pending:
+      return "Pending";
+    case OrderStatus.Pending:
+      return "Pending";
+    default:
+      return "Denied";
+  }
+};
+
 export const getVietnameseTableStatus = (
   status: (typeof TableStatus)[keyof typeof TableStatus]
 ) => {
@@ -178,6 +215,19 @@ export const getVietnameseTableStatus = (
       return "Đã đặt";
     default:
       return "Ẩn";
+  }
+};
+
+export const getTableStatus = (
+  status: (typeof TableStatus)[keyof typeof TableStatus]
+) => {
+  switch (status) {
+    case TableStatus.Available:
+      return "Available";
+    case TableStatus.Reserved:
+      return "Reserved";
+    default:
+      return "Hidden";
   }
 };
 

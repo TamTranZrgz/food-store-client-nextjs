@@ -56,7 +56,7 @@ export default function ChangePasswordForm() {
       >
         <Card className="overflow-hidden" x-chunk="dashboard-07-chunk-4">
           <CardHeader>
-            <CardTitle>Đổi mật khẩu</CardTitle>
+            <CardTitle>Change password</CardTitle>
             {/* <CardDescription>Lipsum dolor sit amet, consectetur adipiscing elit</CardDescription> */}
           </CardHeader>
           <CardContent>
@@ -67,7 +67,7 @@ export default function ChangePasswordForm() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid gap-3">
-                      <Label htmlFor="oldPassword">Mật khẩu cũ</Label>
+                      <Label htmlFor="oldPassword">Old password</Label>
                       <Input
                         id="oldPassword"
                         type="password"
@@ -85,7 +85,7 @@ export default function ChangePasswordForm() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid gap-3">
-                      <Label htmlFor="password">Mật khẩu mới</Label>
+                      <Label htmlFor="password">New password</Label>
                       <Input
                         id="password"
                         type="password"
@@ -104,7 +104,7 @@ export default function ChangePasswordForm() {
                   <FormItem>
                     <div className="grid gap-3">
                       <Label htmlFor="confirmPassword">
-                        Nhập lại mật khẩu mới
+                        Enter confirm password
                       </Label>
                       <Input
                         id="confirmPassword"
@@ -119,10 +119,10 @@ export default function ChangePasswordForm() {
               />
               <div className=" items-center gap-2 md:ml-auto flex">
                 <Button variant="outline" size="sm" type="reset">
-                  Hủy
+                  Cancel
                 </Button>
                 <Button size="sm" type="submit">
-                  Lưu thông tin
+                  Save
                 </Button>
               </div>
             </div>
