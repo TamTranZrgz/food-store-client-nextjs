@@ -26,7 +26,12 @@ import GuestsDialog from "@/app/manage/orders/guests-dialog";
 import { CreateOrdersBodyType } from "@/schemaValidations/order.schema";
 import Quantity from "@/app/guest/menu/quantity";
 import Image from "next/image";
-import { cn, formatCurrency, handleErrorApi } from "@/lib/utils";
+import {
+  cn,
+  formatCurrency,
+  formatEurCurrency,
+  handleErrorApi,
+} from "@/lib/utils";
 import { DishStatus } from "@/constants/type";
 import { DishListResType } from "@/schemaValidations/dish.schema";
 import { useGetDishList } from "@/queries/useDish";
@@ -138,16 +143,16 @@ export default function AddOrder() {
         <Button size="sm" className="h-7 gap-1">
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Tạo đơn hàng
+            Create order
           </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] max-h-screen overflow-auto">
         <DialogHeader>
-          <DialogTitle>Tạo đơn hàng</DialogTitle>
+          <DialogTitle>Create order</DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-          <Label htmlFor="isNewGuest">Khách hàng mới</Label>
+          <Label htmlFor="isNewGuest">New customer</Label>
           <div className="col-span-3 flex items-center">
             <Switch
               id="isNewGuest"
@@ -170,7 +175,7 @@ export default function AddOrder() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                        <Label htmlFor="name">Tên khách hàng</Label>
+                        <Label htmlFor="name">Customer name</Label>
                         <div className="col-span-3 w-full space-y-2">
                           <Input id="name" className="w-full" {...field} />
                           <FormMessage />
@@ -185,7 +190,7 @@ export default function AddOrder() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="grid grid-cols-4 items-center justify-items-start gap-4">
-                        <Label htmlFor="tableNumber">Chọn bàn</Label>
+                        <Label htmlFor="tableNumber">Choose table</Label>
                         <div className="col-span-3 w-full space-y-2">
                           <div className="flex items-center gap-4">
                             <div>{field.value}</div>
@@ -234,7 +239,7 @@ export default function AddOrder() {
               <div className="flex-shrink-0 relative">
                 {dish.status === DishStatus.Unavailable && (
                   <span className="absolute inset-0 flex items-center justify-center text-sm">
-                    Hết hàng
+                    Sold out
                   </span>
                 )}
                 <Image
@@ -270,8 +275,11 @@ export default function AddOrder() {
             onClick={handleOrder}
             disabled={orders.length === 0}
           >
-            <span>Đặt hàng · {orders.length} món</span>
-            <span>{formatCurrency(totalPrice)}</span>
+            <span>
+              Order · {orders.length}{" "}
+              {orders.length === 1 ? " dish" : " dishes"}
+            </span>
+            <span>{formatEurCurrency(totalPrice)}</span>
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -12,6 +12,8 @@ import guestApiRequest from "@/apiRequests/guest";
 import { format } from "date-fns";
 import { BookX, CookingPot, HandCoins, Loader, Truck } from "lucide-react";
 import { io } from "socket.io-client";
+import slugify from "slugify";
+import { convert } from "html-to-text";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -43,7 +45,7 @@ export const handleErrorApi = ({
   } else {
     toast({
       title: "Lỗi",
-      description: error?.payload?.message ?? "Lỗi không xác định",
+      description: error?.payload?.message ?? "Unidentified error",
       variant: "destructive",
       duration: duration ?? 5000,
     });
@@ -138,6 +140,13 @@ export const formatCurrency = (number: number) => {
   }).format(number);
 };
 
+export const formatEurCurrency = (number: number) => {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(number);
+};
+
 export const getVietnameseDishStatus = (
   status: (typeof DishStatus)[keyof typeof DishStatus]
 ) => {
@@ -148,6 +157,19 @@ export const getVietnameseDishStatus = (
       return "Không có sẵn";
     default:
       return "Ẩn";
+  }
+};
+
+export const getEnglishDishStatus = (
+  status: (typeof DishStatus)[keyof typeof DishStatus]
+) => {
+  switch (status) {
+    case DishStatus.Available:
+      return "Available";
+    case DishStatus.Unavailable:
+      return "Unavailable";
+    default:
+      return "Hidden";
   }
 };
 
@@ -178,6 +200,19 @@ export const getVietnameseTableStatus = (
       return "Đã đặt";
     default:
       return "Ẩn";
+  }
+};
+
+export const getEnglishTableStatus = (
+  status: (typeof TableStatus)[keyof typeof TableStatus]
+) => {
+  switch (status) {
+    case TableStatus.Available:
+      return "Available";
+    case TableStatus.Reserved:
+      return "Reserved";
+    default:
+      return "Hidden";
   }
 };
 
@@ -248,4 +283,20 @@ export const wrapServerApi = async <T>(fn: () => Promise<T>) => {
     }
   }
   return result;
+};
+
+export const generateSlugUrl = ({ name, id }: { name: string; id: number }) => {
+  return `${slugify(name)}-i.${id}`;
+};
+
+export const getIdFromSlugUrl = (slug: string) => {
+  return Number(slug.split("-i.")[1]);
+};
+
+export const htmlToTextForDescription = (html: string) => {
+  return convert(html, {
+    limits: {
+      maxInputLength: 100,
+    },
+  });
 };

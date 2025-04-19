@@ -7,9 +7,11 @@ const nextConfig = {
         hostname: "ik.imagekit.io",
       },
       {
-        // protocol: "http",
-        hostname: "localhost",
-        // port: "4000",
+        protocol: process.env.NODE_ENV === "development" ? "http" : "https",
+        hostname:
+          process.env.NODE_ENV === "development"
+            ? "localhost"
+            : "api-goodfill.onrender.com",
         pathname: "/**",
       },
       {

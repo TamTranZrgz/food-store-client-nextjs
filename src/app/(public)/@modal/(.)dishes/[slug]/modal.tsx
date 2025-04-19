@@ -1,6 +1,12 @@
 "use client";
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -17,6 +23,10 @@ export default function Modal({ children }: { children: React.ReactNode }) {
       }}
     >
       <DialogContent className="max-h-full overflow-auto">
+        <DialogHeader className="hidden">
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
         {children}
       </DialogContent>
     </Dialog>

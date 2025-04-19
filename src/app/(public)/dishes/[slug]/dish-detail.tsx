@@ -15,7 +15,7 @@ export default async function DishDetail({
     );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       <h1 className="text-2xl lg:text-3xl font-semibold">{dish.name}</h1>
       <div className="font-semibold">Price: {formatCurrency(dish.price)}</div>
       <Image
@@ -25,8 +25,9 @@ export default async function DishDetail({
         quality={100}
         alt={dish.name}
         className="w-full h-full max-w-[1080px] object-cover rounded-md"
+        title={dish.name}
       />
-      <p>{dish.description}</p>
+      <p className="py-3">{dish.description}</p>
     </div>
   );
 }

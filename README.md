@@ -1,4 +1,4 @@
-# Food Store Managagement App
+# Food Order Managagement App
 
 ## Technologies:
 
@@ -28,9 +28,3 @@
 [Rich-text-editor](https://www.tiny.cloud/)
 
 [DOM-Purify](https://www.npmjs.com/package/dompurify)
-
-https://madappgang.com/blog/how-to-plan-make-monetize-a-recipe-app-from-idea/
-
-https://app.flavorish.ai/recipes
-
-https://www.excellentwebworld.com/how-to-create-a-recipe-app/

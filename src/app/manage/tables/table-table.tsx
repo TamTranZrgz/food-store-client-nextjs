@@ -71,7 +71,7 @@ const TableTableContext = createContext<{
 export const columns: ColumnDef<TableItem>[] = [
   {
     accessorKey: "number",
-    header: "Số bàn",
+    header: "Table number",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("number")}</div>
     ),
@@ -82,14 +82,14 @@ export const columns: ColumnDef<TableItem>[] = [
   },
   {
     accessorKey: "capacity",
-    header: "Sức chứa",
+    header: "Capacity",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("capacity")}</div>
     ),
   },
   {
     accessorKey: "status",
-    header: "Trạng thái",
+    header: "Status",
     cell: ({ row }) => (
       <div>{getVietnameseTableStatus(row.getValue("status"))}</div>
     ),
@@ -129,8 +129,10 @@ export const columns: ColumnDef<TableItem>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={openEditTable}>Sửa</DropdownMenuItem>
-            <DropdownMenuItem onClick={openDeleteTable}>Xóa</DropdownMenuItem>
+            <DropdownMenuItem onClick={openEditTable}>Edit</DropdownMenuItem>
+            <DropdownMenuItem onClick={openDeleteTable}>
+              Delete
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -174,13 +176,13 @@ function AlertDialogDeleteTable({
     >
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xóa bàn ăn?</AlertDialogTitle>
+          <AlertDialogTitle>Delete table?</AlertDialogTitle>
           <AlertDialogDescription>
-            Bàn{" "}
+            Table{" "}
             <span className="bg-foreground text-primary-foreground rounded px-1">
               {tableDelete?.number}
             </span>{" "}
-            sẽ bị xóa vĩnh viễn
+            will be deleted permanently ?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -191,7 +193,7 @@ function AlertDialogDeleteTable({
     </AlertDialog>
   );
 }
-// Số lượng item trên 1 trang
+// Number of items per page
 const PAGE_SIZE = 10;
 export default function TableTable() {
   const searchParam = useSearchParams();
@@ -320,9 +322,8 @@ export default function TableTable() {
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="text-xs text-muted-foreground py-4 flex-1 ">
-            Hiển thị{" "}
-            <strong>{table.getPaginationRowModel().rows.length}</strong> trong{" "}
-            <strong>{data.length}</strong> kết quả
+            Display <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+            in <strong>{data.length}</strong> results
           </div>
           <div>
             <AutoPagination

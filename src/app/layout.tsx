@@ -19,8 +19,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "GoodFill Food Store",
-  description: "Fill Your Stomach With Love",
+  title: "GoodFill · Fill your stomach with love",
+  description: "GoodFill is where you can fill your stomach with love",
 };
 
 export default function RootLayout({

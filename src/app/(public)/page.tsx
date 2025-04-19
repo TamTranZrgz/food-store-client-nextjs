@@ -3,10 +3,12 @@ import bannerImg from "@/assets/images/banner.png";
 import dishApiRequest from "@/apiRequests/dish";
 import { DishListResType } from "@/schemaValidations/dish.schema";
 import Link from "next/link";
+import { generateSlugUrl, htmlToTextForDescription } from "@/lib/utils";
 
 export default async function Home() {
   let dishList: DishListResType["data"] = [];
   // this is home page, so fetch dish as a server component
+
   try {
     const result = await dishApiRequest.list();
     const {
@@ -45,7 +47,10 @@ export default async function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {dishList.map((dish) => (
             <Link
-              href={`/dishes/${dish.id}`}
+              href={`/dishes/${generateSlugUrl({
+                name: dish.name,
+                id: dish.id,
+              })}`}
               className="flex gap-4 w"
               key={dish.id}
             >
@@ -64,8 +69,8 @@ export default async function Home() {
                   {dish?.name ? dish.name : "There is no name"}
                 </h3>
                 <p className="">
-                  {dish.description
-                    ? dish.description
+                  {dish?.description
+                    ? htmlToTextForDescription(dish.description) + " ..."
                     : "There is no description"}
                 </p>
                 <p className="font-semibold">{dish.price ? dish.price : 0}đ</p>
