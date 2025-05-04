@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
+  getEnglishTableStatus,
   getTableLink,
   getVietnameseTableStatus,
   handleErrorApi,
@@ -190,7 +191,7 @@ export default function EditTable({
                           <SelectContent>
                             {TableStatusValues.map((status) => (
                               <SelectItem key={status} value={status}>
-                                {getVietnameseTableStatus(status)}
+                                {getEnglishTableStatus(status)}
                               </SelectItem>
                             ))}
                           </SelectContent>

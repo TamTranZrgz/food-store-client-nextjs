@@ -35,15 +35,17 @@ export default async function Home() {
         />
         <div className="z-20 relative py-10 md:py-20 px-4 sm:px-10 md:px-20">
           <h1 className="text-center text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold">
-            Nhà hàng GoodFill
+            GoodFill Restaurant
           </h1>
           <p className="text-center text-sm sm:text-base mt-4">
-            Vị ngon, trọn khoảnh khắc
+            Savor the taste, cherish the moment
           </p>
         </div>
       </section>
       <section className="space-y-10 py-16">
-        <h2 className="text-center text-2xl font-bold">Đa dạng các món ăn</h2>
+        <h2 className="text-center text-2xl font-bold">
+          A diverse selection of dishes
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {dishList.map((dish) => (
             <Link
@@ -73,7 +75,7 @@ export default async function Home() {
                     ? htmlToTextForDescription(dish.description) + " ..."
                     : "There is no description"}
                 </p>
-                <p className="font-semibold">{dish.price ? dish.price : 0}đ</p>
+                <p className="font-semibold">{dish.price ? dish.price : 0} €</p>
               </div>
             </Link>
           ))}

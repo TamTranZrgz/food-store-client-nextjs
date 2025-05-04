@@ -74,7 +74,7 @@ export default function MenuOrder() {
             <div className="flex-shrink-0 relative">
               {dish.status === DishStatus.Unavailable && (
                 <span className="text-white absolute inset-0 flex items-center justify-center text-sm">
-                  Het hang
+                  Sold out
                 </span>
               )}
               <Image
@@ -90,7 +90,7 @@ export default function MenuOrder() {
               <h3 className="text-sm">{dish.name}</h3>
               <p className="text-xs">{dish.description}</p>
               <p className="text-xs font-semibold">
-                {formatCurrency(dish.price)} đ
+                {formatCurrency(dish.price)} €
               </p>
             </div>
             <div className="flex-shrink-0 ml-auto flex justify-center items-center">
@@ -110,8 +110,10 @@ export default function MenuOrder() {
           onClick={handleOrder}
           disabled={orders.length === 0}
         >
-          <span>Dat hang · {orders.length} món</span>
-          <span>{formatCurrency(totalPrice)} đ</span>
+          <span>
+            Order · {orders.length} {orders.length > 1 ? "dishes" : "dish"}
+          </span>
+          <span>{formatCurrency(totalPrice)} €</span>
         </Button>
       </div>
     </>

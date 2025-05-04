@@ -92,9 +92,9 @@ export default function LoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Đăng nhập</CardTitle>
+        <CardTitle className="text-2xl">Log In</CardTitle>
         <CardDescription>
-          Nhập email và mật khẩu của bạn để đăng nhập vào hệ thống
+          Enter your email and password to log in to the platform
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -147,11 +147,11 @@ export default function LoginForm() {
                 )}
               />
               <Button type="submit" className="w-full">
-                Đăng nhập
+                Log in
               </Button>
               <Link href={googleOauthUrl}>
                 <Button variant="outline" className="w-full" type="button">
-                  Đăng nhập bằng Google
+                  Log in with Google
                 </Button>
               </Link>
             </div>

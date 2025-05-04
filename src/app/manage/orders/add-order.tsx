@@ -26,18 +26,11 @@ import GuestsDialog from "@/app/manage/orders/guests-dialog";
 import { CreateOrdersBodyType } from "@/schemaValidations/order.schema";
 import Quantity from "@/app/guest/menu/quantity";
 import Image from "next/image";
-import {
-  cn,
-  formatCurrency,
-  formatEurCurrency,
-  handleErrorApi,
-} from "@/lib/utils";
+import { cn, formatCurrency, handleErrorApi } from "@/lib/utils";
 import { DishStatus } from "@/constants/type";
-import { DishListResType } from "@/schemaValidations/dish.schema";
 import { useGetDishList } from "@/queries/useDish";
 import { useCreateOrderMutation } from "@/queries/useOrder";
 import { useCreateGuestMutation } from "@/queries/useAccount";
-import { Description } from "@radix-ui/react-toast";
 import { toast } from "@/hooks/use-toast";
 
 export default function AddOrder() {
@@ -279,7 +272,7 @@ export default function AddOrder() {
               Order · {orders.length}{" "}
               {orders.length === 1 ? " dish" : " dishes"}
             </span>
-            <span>{formatEurCurrency(totalPrice)}</span>
+            <span>{formatCurrency(totalPrice)}</span>
           </Button>
         </DialogFooter>
       </DialogContent>

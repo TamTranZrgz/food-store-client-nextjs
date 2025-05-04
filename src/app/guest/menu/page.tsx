@@ -21,6 +21,7 @@ const dishes = [
     image: "https://via.placeholder.com/150",
   },
 ];
+
 export default async function MenuPage() {
   return (
     <div className="max-w-[400px] mx-auto space-y-4">

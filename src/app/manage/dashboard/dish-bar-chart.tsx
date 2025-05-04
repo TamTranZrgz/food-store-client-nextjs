@@ -84,8 +84,8 @@ export function DishBarChart({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Xếp hạng món ăn</CardTitle>
-        <CardDescription>Được gọi nhiều nhất</CardDescription>
+        <CardTitle>Dish ranking</CardTitle>
+        <CardDescription>Most ordered</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -111,7 +111,7 @@ export function DishBarChart({
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Bar
               dataKey="successOrders"
-              name={"Đơn thanh toán: "}
+              name={"Paid orders: "}
               layout="vertical"
               radius={5}
             />

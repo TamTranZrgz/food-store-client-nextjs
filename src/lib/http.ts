@@ -88,8 +88,8 @@ const request = async <Response>(
       baseHeaders.Authorization = `Bearer ${accessToken}`;
     }
   }
-  // Nếu không truyền baseUrl (hoặc baseUrl = undefined) thì lấy từ envConfig.NEXT_PUBLIC_API_ENDPOINT
-  // Nếu truyền baseUrl thì lấy giá trị truyền vào, truyền vào '' thì đồng nghĩa với việc chúng ta gọi API đến Next.js Server
+  // If not pass baseUrl (or baseUrl = undefined), get from envConfig.NEXT_PUBLIC_API_ENDPOINT
+  // If pass baseUrl, get that value.  Passing '' calling API to Next.js Server
 
   const baseUrl =
     options?.baseUrl === undefined
@@ -113,7 +113,7 @@ const request = async <Response>(
     payload,
   };
 
-  // Interceptor là nời chúng ta xử lý request và response trước khi trả về cho phía component
+  // Interceptor is where we resolve request/response before return it to component
   if (!res.ok) {
     if (res.status === ENTITY_ERROR_STATUS) {
       throw new EntityError(
@@ -127,7 +127,7 @@ const request = async <Response>(
         if (!clientLogoutRequest) {
           clientLogoutRequest = fetch("/api/auth/logout", {
             method: "POST",
-            body: null, // Logout mình sẽ cho phép luôn luôn thành công
+            body: null, // Logout will be always successful
             headers: {
               ...baseHeaders,
             } as any,
@@ -140,8 +140,7 @@ const request = async <Response>(
             removeAccessTokenAndRefreshTokenFromLocalStorage();
             clientLogoutRequest = null;
 
-            // Redirect về trang login có thể dẫn đến loop vô hạn
-            // Nếu không không được xử lý đúng cách
+            // Redirect to Login page can cause loop indefinitely if not deal correctly
             // Vì nếu rơi vào trường hợp tại trang Login, chúng ta có gọi các API cần access token
             // Mà access token đã bị xóa thì nó lại nhảy vào đây, và cứ thế nó sẽ bị lặp
             location.href = "/login"; // comment this code when you want to debug

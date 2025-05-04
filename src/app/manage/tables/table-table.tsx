@@ -43,7 +43,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { getVietnameseTableStatus, handleErrorApi } from "@/lib/utils";
+import { getEnglishTableStatus, handleErrorApi } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import AutoPagination from "@/components/auto-pagination";
 import { TableListResType } from "@/schemaValidations/table.schema";
@@ -91,7 +91,7 @@ export const columns: ColumnDef<TableItem>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <div>{getVietnameseTableStatus(row.getValue("status"))}</div>
+      <div>{getEnglishTableStatus(row.getValue("status"))}</div>
     ),
   },
   {
@@ -257,7 +257,7 @@ export default function TableTable() {
         />
         <div className="flex items-center py-4">
           <Input
-            placeholder="Lọc số bàn"
+            placeholder="Filter table number..."
             value={
               (table.getColumn("number")?.getFilterValue() as string) ?? ""
             }
@@ -323,7 +323,8 @@ export default function TableTable() {
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="text-xs text-muted-foreground py-4 flex-1 ">
             Display <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
-            in <strong>{data.length}</strong> results
+            in <strong>{data.length}</strong>{" "}
+            {data.length > 1 ? "tables" : "table"}
           </div>
           <div>
             <AutoPagination

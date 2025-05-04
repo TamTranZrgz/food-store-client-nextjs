@@ -1,14 +1,12 @@
-import { Role } from '@/constants/type'
-import z from 'zod'
+import { Role } from "@/constants/type";
+import z from "zod";
 
 export const LoginBody = z
   .object({
     email: z.string().email(),
-    password: z.string().min(6).max(100)
+    password: z.string().min(6).max(100),
   })
-  .strict()
-
-export type LoginBodyType = z.TypeOf<typeof LoginBody>
+  .strict();
 
 export const LoginRes = z.object({
   data: z.object({
@@ -19,42 +17,46 @@ export const LoginRes = z.object({
       name: z.string(),
       email: z.string(),
       role: z.enum([Role.Owner, Role.Employee]),
-      avatar: z.string().nullable()
-    })
+      avatar: z.string().nullable(),
+    }),
   }),
-  message: z.string()
-})
-
-export type LoginResType = z.TypeOf<typeof LoginRes>
+  message: z.string(),
+});
 
 export const RefreshTokenBody = z
   .object({
-    refreshToken: z.string()
+    refreshToken: z.string(),
   })
-  .strict()
-
-export type RefreshTokenBodyType = z.TypeOf<typeof RefreshTokenBody>
+  .strict();
 
 export const RefreshTokenRes = z.object({
   data: z.object({
     accessToken: z.string(),
-    refreshToken: z.string()
+    refreshToken: z.string(),
   }),
-  message: z.string()
-})
-
-export type RefreshTokenResType = z.TypeOf<typeof RefreshTokenRes>
+  message: z.string(),
+});
 
 export const LogoutBody = z
   .object({
-    refreshToken: z.string()
+    refreshToken: z.string(),
   })
-  .strict()
-
-export type LogoutBodyType = z.TypeOf<typeof LogoutBody>
+  .strict();
 
 export const LoginGoogleQuery = z.object({
-  code: z.string()
-})
+  code: z.string(),
+});
 
-export type LoginGoogleQueryType = z.TypeOf<typeof LoginGoogleQuery>
+// TYPE EXPORT
+
+export type LoginBodyType = z.TypeOf<typeof LoginBody>;
+
+export type LoginResType = z.TypeOf<typeof LoginRes>;
+
+export type RefreshTokenBodyType = z.TypeOf<typeof RefreshTokenBody>;
+
+export type RefreshTokenResType = z.TypeOf<typeof RefreshTokenRes>;
+
+export type LogoutBodyType = z.TypeOf<typeof LogoutBody>;
+
+export type LoginGoogleQueryType = z.TypeOf<typeof LoginGoogleQuery>;

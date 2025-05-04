@@ -19,11 +19,6 @@ import { handleErrorApi } from "@/lib/utils";
 import { useAccountMe } from "@/queries/useAccount";
 import { useAppStore } from "@/components/app-provider";
 
-// const account = {
-//   name: "Nguyễn Văn A",
-//   avatar: "https://i.pravatar.cc/150",
-// };
-
 export default function DropdownAvatar() {
   const logoutMutation = useLogoutMutation();
   const router = useRouter();

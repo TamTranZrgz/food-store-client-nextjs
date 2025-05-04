@@ -77,7 +77,7 @@ export default function OrderStatics({
           {selectedServingGuest && (
             <DialogHeader>
               <DialogTitle>
-                Khách đang ngồi tại bàn {selectedTableNumber}
+                Customer is sitting at table {selectedTableNumber}
               </DialogTitle>
             </DialogHeader>
           )}
@@ -169,7 +169,8 @@ export default function OrderStatics({
                       </div>
                     </TooltipTrigger>
                     <TooltipContent>
-                      Đang phục vụ: {servingGuestCount} khách
+                      Serving: {servingGuestCount}{" "}
+                      {servingGuestCount === 1 ? "guest" : "guests"}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -197,7 +198,7 @@ export default function OrderStatics({
                       </TooltipTrigger>
                       <TooltipContent>
                         {getVietnameseOrderStatus(OrderStatus.Pending)}:{" "}
-                        {countObject[OrderStatus.Pending] ?? 0} đơn
+                        {countObject[OrderStatus.Pending] ?? 0} orders
                       </TooltipContent>
                     </Tooltip>
 
@@ -212,7 +213,7 @@ export default function OrderStatics({
                       </TooltipTrigger>
                       <TooltipContent>
                         {getVietnameseOrderStatus(OrderStatus.Processing)}:{" "}
-                        {countObject[OrderStatus.Processing] ?? 0} đơn
+                        {countObject[OrderStatus.Processing] ?? 0} orders
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
@@ -224,7 +225,7 @@ export default function OrderStatics({
                       </TooltipTrigger>
                       <TooltipContent>
                         {getVietnameseOrderStatus(OrderStatus.Delivered)}:{" "}
-                        {countObject[OrderStatus.Delivered] ?? 0} đơn
+                        {countObject[OrderStatus.Delivered] ?? 0} orders
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>

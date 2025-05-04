@@ -26,10 +26,14 @@ import {
 } from "@/schemaValidations/order.schema";
 import AddOrder from "@/app/manage/orders/add-order";
 import EditOrder from "@/app/manage/orders/edit-order";
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import AutoPagination from "@/components/auto-pagination";
-import { getVietnameseOrderStatus, handleErrorApi } from "@/lib/utils";
+import {
+  getEnglishsOrderStatus,
+  getVietnameseOrderStatus,
+  handleErrorApi,
+} from "@/lib/utils";
 import { OrderStatusValues } from "@/constants/type";
 import OrderStatics from "@/app/manage/orders/order-statics";
 import orderTableColumns from "@/app/manage/orders/order-table-columns";
@@ -51,10 +55,7 @@ import {
 } from "@/components/ui/popover";
 import { endOfDay, format, startOfDay } from "date-fns";
 import TableSkeleton from "@/app/manage/orders/table-skeleton";
-import {
-  GuestCreateOrdersResType,
-  GuestGetOrdersResType,
-} from "@/schemaValidations/guest.schema";
+import { GuestCreateOrdersResType } from "@/schemaValidations/guest.schema";
 import {
   useGetOrderListQuery,
   useUpdateOrderMutation,
@@ -210,7 +211,7 @@ export default function OrderTable() {
         quantity,
       } = data;
       toast({
-        description: `Đơn hàng ${name} (SL: ${quantity}) của bạn đã được cập nhật sang trang thai ${getVietnameseOrderStatus(
+        description: `Order ${name} (Quantity: ${quantity}) has been updated to the status ${getEnglishsOrderStatus(
           data.status
         )}`,
       });
@@ -269,20 +270,20 @@ export default function OrderTable() {
         <div className=" flex items-center">
           <div className="flex flex-wrap gap-2">
             <div className="flex items-center">
-              <span className="mr-2">Từ</span>
+              <span className="mr-2">From</span>
               <Input
                 type="datetime-local"
-                placeholder="Từ ngày"
+                placeholder="From"
                 className="text-sm"
                 value={format(fromDate, "yyyy-MM-dd HH:mm").replace(" ", "T")}
                 onChange={(event) => setFromDate(new Date(event.target.value))}
               />
             </div>
             <div className="flex items-center">
-              <span className="mr-2">Đến</span>
+              <span className="mr-2">To</span>
               <Input
                 type="datetime-local"
-                placeholder="Đến ngày"
+                placeholder="To"
                 value={format(toDate, "yyyy-MM-dd HH:mm").replace(" ", "T")}
                 onChange={(event) => setToDate(new Date(event.target.value))}
               />
@@ -297,7 +298,7 @@ export default function OrderTable() {
         </div>
         <div className="flex flex-wrap items-center gap-4 py-4">
           <Input
-            placeholder="Tên khách"
+            placeholder="Name"
             value={
               (table.getColumn("guestName")?.getFilterValue() as string) ?? ""
             }
@@ -307,7 +308,7 @@ export default function OrderTable() {
             className="max-w-[100px]"
           />
           <Input
-            placeholder="Số bàn"
+            placeholder="Table"
             value={
               (table.getColumn("tableNumber")?.getFilterValue() as string) ?? ""
             }
@@ -325,12 +326,12 @@ export default function OrderTable() {
                 className="w-[150px] text-sm justify-between"
               >
                 {table.getColumn("status")?.getFilterValue()
-                  ? getVietnameseOrderStatus(
+                  ? getEnglishsOrderStatus(
                       table
                         .getColumn("status")
                         ?.getFilterValue() as (typeof OrderStatusValues)[number]
                     )
-                  : "Trạng thái"}
+                  : "Status"}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
@@ -363,7 +364,7 @@ export default function OrderTable() {
                               : "opacity-0"
                           )}
                         />
-                        {getVietnameseOrderStatus(status)}
+                        {getEnglishsOrderStatus(status)}
                       </CommandItem>
                     ))}
                   </CommandList>
@@ -432,9 +433,9 @@ export default function OrderTable() {
         )}
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="text-xs text-muted-foreground py-4 flex-1 ">
-            Hiển thị{" "}
-            <strong>{table.getPaginationRowModel().rows.length}</strong> trong{" "}
-            <strong>{orderList.length}</strong> kết quả
+            Display <strong>{table.getPaginationRowModel().rows.length}</strong>{" "}
+            trong <strong>{orderList.length}</strong>{" "}
+            {orderList.length === 1 ? "order" : "orders"}
           </div>
           <div>
             <AutoPagination

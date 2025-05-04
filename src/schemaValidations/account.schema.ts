@@ -10,14 +10,10 @@ export const AccountSchema = z.object({
   avatar: z.string().nullable(),
 });
 
-export type AccountType = z.TypeOf<typeof AccountSchema>;
-
 export const AccountListRes = z.object({
   data: z.array(AccountSchema),
   message: z.string(),
 });
-
-export type AccountListResType = z.TypeOf<typeof AccountListRes>;
 
 export const AccountRes = z
   .object({
@@ -25,8 +21,6 @@ export const AccountRes = z
     message: z.string(),
   })
   .strict();
-
-export type AccountResType = z.TypeOf<typeof AccountRes>;
 
 export const CreateEmployeeAccountBody = z
   .object({
@@ -46,10 +40,6 @@ export const CreateEmployeeAccountBody = z
       });
     }
   });
-
-export type CreateEmployeeAccountBodyType = z.TypeOf<
-  typeof CreateEmployeeAccountBody
->;
 
 export const UpdateEmployeeAccountBody = z
   .object({
@@ -80,18 +70,12 @@ export const UpdateEmployeeAccountBody = z
     }
   });
 
-export type UpdateEmployeeAccountBodyType = z.TypeOf<
-  typeof UpdateEmployeeAccountBody
->;
-
 export const UpdateMeBody = z
   .object({
     name: z.string().trim().min(2).max(256),
     avatar: z.string().url().optional(),
   })
   .strict();
-
-export type UpdateMeBodyType = z.TypeOf<typeof UpdateMeBody>;
 
 export const ChangePasswordBody = z
   .object({
@@ -110,21 +94,13 @@ export const ChangePasswordBody = z
     }
   });
 
-export type ChangePasswordBodyType = z.TypeOf<typeof ChangePasswordBody>;
-
 export const ChangePasswordV2Body = ChangePasswordBody;
 
-export type ChangePasswordV2BodyType = z.TypeOf<typeof ChangePasswordV2Body>;
-
 export const ChangePasswordV2Res = LoginRes;
-
-export type ChangePasswordV2ResType = z.TypeOf<typeof ChangePasswordV2Res>;
 
 export const AccountIdParam = z.object({
   id: z.coerce.number(),
 });
-
-export type AccountIdParamType = z.TypeOf<typeof AccountIdParam>;
 
 export const GetListGuestsRes = z.object({
   data: z.array(
@@ -139,16 +115,10 @@ export const GetListGuestsRes = z.object({
   message: z.string(),
 });
 
-export type GetListGuestsResType = z.TypeOf<typeof GetListGuestsRes>;
-
 export const GetGuestListQueryParams = z.object({
   fromDate: z.coerce.date().optional(),
   toDate: z.coerce.date().optional(),
 });
-
-export type GetGuestListQueryParamsType = z.TypeOf<
-  typeof GetGuestListQueryParams
->;
 
 export const CreateGuestBody = z
   .object({
@@ -156,8 +126,6 @@ export const CreateGuestBody = z
     tableNumber: z.number(),
   })
   .strict();
-
-export type CreateGuestBodyType = z.TypeOf<typeof CreateGuestBody>;
 
 export const CreateGuestRes = z.object({
   message: z.string(),
@@ -170,5 +138,39 @@ export const CreateGuestRes = z.object({
     updatedAt: z.date(),
   }),
 });
+
+// TYPE EXPORT
+
+export type AccountType = z.TypeOf<typeof AccountSchema>;
+
+export type AccountListResType = z.TypeOf<typeof AccountListRes>;
+
+export type AccountResType = z.TypeOf<typeof AccountRes>;
+
+export type CreateEmployeeAccountBodyType = z.TypeOf<
+  typeof CreateEmployeeAccountBody
+>;
+
+export type UpdateEmployeeAccountBodyType = z.TypeOf<
+  typeof UpdateEmployeeAccountBody
+>;
+
+export type UpdateMeBodyType = z.TypeOf<typeof UpdateMeBody>;
+
+export type ChangePasswordBodyType = z.TypeOf<typeof ChangePasswordBody>;
+
+export type ChangePasswordV2BodyType = z.TypeOf<typeof ChangePasswordV2Body>;
+
+export type ChangePasswordV2ResType = z.TypeOf<typeof ChangePasswordV2Res>;
+
+export type AccountIdParamType = z.TypeOf<typeof AccountIdParam>;
+
+export type GetListGuestsResType = z.TypeOf<typeof GetListGuestsRes>;
+
+export type GetGuestListQueryParamsType = z.TypeOf<
+  typeof GetGuestListQueryParams
+>;
+
+export type CreateGuestBodyType = z.TypeOf<typeof CreateGuestBody>;
 
 export type CreateGuestResType = z.TypeOf<typeof CreateGuestRes>;

@@ -66,7 +66,7 @@ export default function GuestLoginForm() {
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">Đăng nhập gọi món</CardTitle>
+        <CardTitle className="text-2xl">Log in to order</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -84,7 +84,7 @@ export default function GuestLoginForm() {
                 render={({ field }) => (
                   <FormItem>
                     <div className="grid gap-2">
-                      <Label htmlFor="name">Tên khách hàng</Label>
+                      <Label htmlFor="name">Customer Name</Label>
                       <Input id="name" type="text" required {...field} />
                       <FormMessage />
                     </div>

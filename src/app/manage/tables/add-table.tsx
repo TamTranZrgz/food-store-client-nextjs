@@ -21,7 +21,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { getVietnameseTableStatus, handleErrorApi } from "@/lib/utils";
+import {
+  getEnglishTableStatus,
+  getVietnameseTableStatus,
+  handleErrorApi,
+} from "@/lib/utils";
 import {
   CreateTableBody,
   CreateTableBodyType,
@@ -171,7 +175,7 @@ export default function AddTable() {
                           <SelectContent>
                             {TableStatusValues.map((status) => (
                               <SelectItem key={status} value={status}>
-                                {getVietnameseTableStatus(status)}
+                                {getEnglishTableStatus(status)}
                               </SelectItem>
                             ))}
                           </SelectContent>

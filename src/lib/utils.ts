@@ -134,16 +134,16 @@ export const checkAndRefreshToken = async (param?: {
 };
 
 export const formatCurrency = (number: number) => {
-  return new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  }).format(number);
-};
-
-export const formatEurCurrency = (number: number) => {
   return new Intl.NumberFormat("de-DE", {
     style: "currency",
     currency: "EUR",
+  }).format(number);
+};
+
+export const formatVietCurrency = (number: number) => {
+  return new Intl.NumberFormat("vi-VI", {
+    style: "currency",
+    currency: "VND",
   }).format(number);
 };
 
@@ -187,6 +187,23 @@ export const getVietnameseOrderStatus = (
       return "Đang nấu";
     default:
       return "Từ chối";
+  }
+};
+
+export const getEnglishsOrderStatus = (
+  status: (typeof OrderStatus)[keyof typeof OrderStatus]
+) => {
+  switch (status) {
+    case OrderStatus.Delivered:
+      return "Delivered";
+    case OrderStatus.Paid:
+      return "Paid";
+    case OrderStatus.Pending:
+      return "Pending";
+    case OrderStatus.Processing:
+      return "Processing";
+    default:
+      return "Deny";
   }
 };
 

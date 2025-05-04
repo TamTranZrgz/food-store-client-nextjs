@@ -14,7 +14,6 @@ import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { useChangePasswordMutation } from "@/queries/useAccount";
 import { toast } from "@/hooks/use-toast";
 import { handleErrorApi } from "@/lib/utils";
-import { error } from "console";
 
 export default function ChangePasswordForm() {
   const changePasswordMutation = useChangePasswordMutation();

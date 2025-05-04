@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useGuestGetOrderListQuery } from "@/queries/useGuest";
-import { formatCurrency, getVietnameseOrderStatus } from "@/lib/utils";
+import { formatCurrency, getEnglishsOrderStatus } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useMemo } from "react";
 import {
@@ -87,7 +87,7 @@ export default function OrdersCart() {
         quantity,
       } = data;
       toast({
-        description: `Đơn hàng ${name} (SL: ${quantity}) của bạn đã được cập nhật sang trang thai ${getVietnameseOrderStatus(
+        description: `Order ${name} (Quantity: ${quantity})  has been updated to the status ${getEnglishsOrderStatus(
           data.status
         )}`,
       });
@@ -136,13 +136,13 @@ export default function OrdersCart() {
           <div className="space-y-1">
             <h3 className="text-sm">{order.dishSnapshot.name}</h3>
             <div className="text-xs font-semibold">
-              {formatCurrency(order.dishSnapshot.price)} đ *{" "}
+              {formatCurrency(order.dishSnapshot.price)} € *{" "}
               <Badge className="px-1">{order.quantity}</Badge>
             </div>
           </div>
           <div className="flex-shrink-0 ml-auto flex justify-center items-center">
             <Badge className="px-1" variant={"outline"}>
-              {getVietnameseOrderStatus(order.status)}
+              {getEnglishsOrderStatus(order.status)}
             </Badge>
           </div>
         </div>
@@ -150,14 +150,14 @@ export default function OrdersCart() {
       <div className="sticky bottom-0 ">
         <div className="w-full space-x-4 justify-between text-xl font-semibold">
           <span>Order not paid - {orderNotPaid.quantity} mon:</span>
-          <span>{formatCurrency(orderNotPaid.price)} đ</span>
+          <span>{formatCurrency(orderNotPaid.price)} €</span>
         </div>
       </div>
       {orderPaid.quantity !== 0 && (
         <div className="sticky bottom-0 ">
           <div className="w-full space-x-4 justify-between text-xl font-semibold">
             <span>Order paid - {orderPaid.quantity} mon:</span>
-            <span>{formatCurrency(orderPaid.price)} đ</span>
+            <span>{formatCurrency(orderPaid.price)} €</span>
           </div>
         </div>
       )}
